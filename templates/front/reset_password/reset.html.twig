@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveau mot de passe - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+{% block content %}
+    {% block body %}
+        <div class="was-validated form-signin text-center background-login bg-white-shebam is-valid">
+			<h3 class="mb-5">Nouveau mot de passe</h3>
+				{{ form_start(resetForm) }}
+			<div class="form-group">
+				{{ form_widget(resetForm.plainPassword) }}
+				{{ form_widget(resetForm.submit) }}
+			</div>
+				{{ form_end(resetForm) }}
+		</div>
+    {% endblock %}
+{% endblock %}

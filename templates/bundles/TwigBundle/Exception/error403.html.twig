@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur 403 - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+{% block content %}
+<div class=" pt-5 pb-5">
+    <div class="container text-center bg-white-shebam form-signin">
+        <div class="row">
+            <div>
+                <h1 class="mb-3">Accès interdit {{status_code}}</h1>
+                <p>Autorisation nécessaire pour cette page</p>
+                <p><a class="navbar-text color-blue-dark-shebam" href="{{ path('home') }}" class="link-a">Retour à la page d'accueil</a></p>  
+            </div>
+        </div> 
+    </div>
+</div>
+{% endblock %}

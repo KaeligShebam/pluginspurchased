@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+{%  block content %}
+
+    <div class="was-validated form-signin text-center background-login bg-white-shebam is-valid">
+        <h1 class="mb-5">Inscription</h1>
+        {% if notification %}
+            <hr>
+                <div class="alert alert-info">{{ notification }}</div>
+            <hr>
+        {% endif %}
+            {{ form_start(form) }}
+        <div class="form-group">
+            {{ form_widget(form) }}
+        </div>
+            {{ form_end(form) }}
+    <span> Déjà inscrit? </span><a href="{{ path('app_login') }}" class="text-info">Connectez-vous</a>
+    </div>
+{%  endblock %}
+
+

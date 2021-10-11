@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+{% block content %}
+
+	<div class="container">
+		<h1 class="text-center color-dark-blue-shebam mb-4">Mon Compte</h1>
+		<hr class="text-center mb-5 mt-5">
+		<div class="row text-center color-white-shebam">
+
+			<!-- Colonne de gauche -->
+			<div class="col text-lcenter">
+				<h3 class="color-blue-dark-shebam"> Mes coordonnées</h3>
+				<hr class="mt-4 mb-4" align="center">
+				<p class="color-blue-dark-shebam">Adresse mail: <span class="color-yellow-shebam">{{ app.user.email }}</span></p>
+				<p class="color-blue-dark-shebam">Role:      
+					<span class="color-yellow-shebam">
+						{% for role in app.user.roles %}
+							{% if role == "ROLE_USER" %}
+								Utilisateur
+							{% elseif role == "ROLE_PRO" %}
+								Entreprise
+							{% elseif role == "ROLE_ADMIN" %}
+								Administrateur
+							{% endif %}
+                        {% endfor %}</span></p>
+			</div>
+
+			<!-- Colonne de droite -->
+			<div class="col text-center">
+				<h3 class="color-blue-dark-shebam"> Modification des coordonnées</h3>
+			<hr class="mt-4 mb-4" align="center">
+			<div class="was-validated text-center is-valid">
+				{% if notification %}
+					<hr>
+						<div class="alert alert-info">{{ notification }}</div>
+					<hr>
+				{% endif %}
+					{{ form_start(form) }}
+				<div class="form-group ">
+					{{ form_widget(form) }}
+				</div>
+					{{ form_end(form) }}
+			</div>
+
+			<span class="color-blue-dark-shebam text-padding"> Aie c'est quoi déjà ? - </span><a href="{{path('app_forgot_password_request')}}" class="text-info">Mot de passe oublié</a>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

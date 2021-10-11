@@ -1,0 +1,26 @@
+/* ---------------------------------------------------
+    MEDIAQUERIES - Admin
+----------------------------------------------------- */
+@media (max-width: 768px) {
+    #sidebar {margin-left: -250px;transform: rotateY(90deg);}
+    #sidebar.active {margin-left: 0;transform: none;}
+    #sidebarCollapse span:first-of-type,
+    #sidebarCollapse span:nth-of-type(2),
+    #sidebarCollapse span:last-of-type {transform: none;opacity: 1;margin: 5px auto;height: 25px;}
+    #sidebarCollapse.active span {margin: 0 auto;}
+    #sidebarCollapse.active span:first-of-type {transform: rotate(45deg) translate(2px, 2px);}
+    #sidebarCollapse.active span:nth-of-type(2) {opacity: 0;}
+    #sidebarCollapse.active span:last-of-type {transform: rotate(-45deg) translate(1px, -1px);}
+    .box{width: auto;}
+    .popup{width: auto;}
+    .btn-add-task-home{display: none;}
+    .padding-mobile{margin-bottom: 15px;}
+    .text-padding{padding-bottom: 50px;}
+}
+@media (min-width: 768px) and (max-width: 900px){
+    .btn-add-task-home-mobile{display: none;}
+}
+@media (min-width: 900px){
+    .mobile-bottom-nav{display: none !important;}
+    .btn-add-task-home-mobile{display: none;}
+}

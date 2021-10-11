@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{%  block title %}Accueil - Liste des tâches{% endblock %}</title>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+    {% endblock %}
+
+    {% block javascripts1 %}{% endblock %}
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/root.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/front/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/css/front/responsive.css') }}" rel="stylesheet">
+</head>
+
+  <body>
+
+    <header class="home bg-white-shebam">
+        <a class="navbar-brand p-3" href="{{ path('home') }}"><img src="{{ asset('assets/images/logo-to-do-list-hor.png') }}"/></a>
+    </header>
+
+    {% block content %}
+            <div class="container text-center bg-white-shebam form-signin mt-5">
+                <h2 class="text-center">Maintenance</h2>
+                <p class="text-center mb-4">L'application est en cours de développement...</p>
+                <p class="text-center mb-4">Revenez plus tard !</p>
+            </div>
+    {% endblock %}
+
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/zxcvbn/4.2.0/zxcvbn.js" async defer></script>
+    <script type="text/javascript" src="{{ asset('assets/js/bootstrap-table.js') }}"></script>
+    <script src="{{ asset('assets/js/motdepasse.js') }}"></script>
+    <script src="{{ asset('assets/js/motdepasse.js') }}"></script>
+    <script src="{{ asset('assets/js/bootstrap.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/backtotop.js') }}"></script>
+  </body>
+</html>

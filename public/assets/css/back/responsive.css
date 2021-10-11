@@ -1,0 +1,7 @@
+@media screen and (max-width: 768px){
+    .title-dashboard{text-align: center;font-size: 25px;}
+    .framed{margin-bottom: 20px;}
+}
+@media screen and (min-width: 769px){
+    .framed:first-child{margin-bottom: 20px;}
+}

@@ -1,0 +1,36 @@
+{% extends 'back/index.html.twig' %}
+
+{% block title %}Historique des changements - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+{% block body %}
+	<div>
+		{% block titre_admin_page %}{% block title_titre_admin_page_base %}{{ parent() }}{% endblock %}Historique des changements{% endblock %}
+	</div>
+
+    {% block admin_utilisateur %}
+            <div class="mt-3 text-center btn-submit-admin-shebam btn">
+                <a href="{{ path('changelog_add_admin') }}">Ajouter une modification</a>
+            </div>
+
+            <div class="mb-5"></div>
+            <div class="row">
+                {% if changelogList is empty %}
+                    <p class="color-blue-dark-shebam">Aucune modification n'a été faite</p>
+                {% else %}
+                {% for changelogList in changelogList %}
+                <div class="col-lg-2 ml-3 changelog">
+                    <p>{{changelogList.version}}</p>
+                    <p class="color-blue-dark-shebam fw-normal">- {{changelogList.name}}</p>
+                    <p class="color-blue-dark-shebam">{% if changelogList.subname is empty %}{% else %} - {{changelogList.subname}}<br>{% endif %}</p>
+                    <p class="color-blue-dark-shebam">{% if changelogList.subname2 is empty %}{% else %}- {{changelogList.subname2}}<br>{% endif %}</p>
+                    <p class="color-blue-dark-shebam">{% if changelogList.subname3 is empty %}{% else %}- {{changelogList.subname3}}<br>{% endif %}</p>
+                    <p class="color-blue-dark-shebam">Publié le: {{changelogList.createdat|date("d-m-Y")}} à {{changelogList.createdat|date((" H:i"))}}</p>
+                    <span><a href="{{ path('changelog_detete_admin', {"id": changelogList.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer un historique')"><i class="fas fa-trash"></i></a></span>
+                </div>
+                {% endfor %}
+            </div>
+    {% endif %}  
+
+    {% endblock %}
+
+{% endblock %}

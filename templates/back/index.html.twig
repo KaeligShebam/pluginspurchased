@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<link rel="icon" href="{{ asset('assets/images/logo-to-do-list-vert.ico') }}" />
+
+		<title>
+			{% block title %}Tableau de bord -{% block title_base %} Administration{% endblock %}{% endblock %}
+		</title>
+
+		<!-- Bootstrap CSS CDN -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+		<link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+        <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/reorder-rows/bootstrap-table-reorder-rows.css" rel="stylesheet">
+		<!-- Font Awesome JS -->
+		<script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.3.0/css/all.min.css" integrity="sha512-UJqci0ZyYcQ0AOJkcIkUCxLS2L6eNcOr7ZiypuInvEhO9uqIDi349MEFrqBzoy1QlfcjfURHl+WTMjEdWcv67A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+		<!-- Custom CSS -->
+		<link rel="stylesheet" href="{{ asset('assets/css/back/admin-template.css') }}">
+		<link rel="stylesheet" href="{{ asset('assets/css/back/responsive.css') }}">
+		<link rel="stylesheet" href="{{ asset('assets/css/root.css') }}">
+		<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />	
+
+	</head>
+	<body>
+		<div class="wrapper">
+			<nav id="sidebar" class="bg-yellow-shebam">
+				<div class="sidebar-header bg-white-shebam">
+					<a href="{{ path('task_list_admin') }}" title="Retourner sur le tableau de bord"><img class="img-admin" src="{{ asset('assets/images/logo-to-do-list-vert.png') }} " alt="Logotype la liste des tâches SHEBAM!"></a>
+				</div>
+				<ul class="list-unstyled components color-white-shebam">
+					{# <li>
+						<a href="{{ path('admin') }}" title="Aller sur le tableau de bord"><i class="fas fa-tachometer-alt"></i> Tableau de bord</a>
+					</li> #}
+					<li>
+						<a href="{{ path('task_list_admin') }}" title="Aller sur la liste des tâches"><i class="fas fa-tasks"></i> Tâches</a>
+					</li>
+					<li>
+						<a href="{{ path('customer_list_admin') }}" title="Aller sur la liste des clients"><i class="fas fa-user-tie"></i> Clients</a>
+					</li>
+					<li>
+						<a href="{{ path('user_list_admin') }}" title="Aller sur la liste de l'équipe"><i class="fas fa-users"></i> Équipe</a>
+					</li>
+					<li>
+						<a href="{{ path('download_list_admin') }}" title="Aller sur la liste des téléchargements"><i class="fas fa-download"></i> Téléchargement</a>
+					</li>
+					<li>
+						<a href="{{ path('changelog') }}" title="Aller sur l'historique des changemnents de la list des tâches"><i class="fas fa-clipboard-list"></i> Changements</a>
+					</li>
+				</ul>
+			</nav>
+	
+			<!-- Page Content Holder -->
+			<div id="content">
+				<nav class="navbar navbar-expand-lg bg-white-shebam">
+					<div class="container-fluid">
+					
+							<button type="button" id="sidebarCollapse" class="navbar-btn">
+								<span></span>
+								<span></span>
+								<span></span>
+							</button>
+							
+							<button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+								<i class="fas fa-align-justify"></i>
+							</button><br>
+							<div class="container title-dashboard">
+								{% block titre_admin_page %}<h4 class="color-blue-dark-shebam">
+									{% block title_titre_admin_page_base %}<a href="{{ path('task_list_admin') }} " title="Retourner sur la liste des tâches">Administration</a> <i class="fas fa-arrow-right"></i>
+									{% endblock %}Tableau de Bord / {{app.user.firstname}} {{app.user.lastname}}</h4>
+								{% endblock %}
+						</div>
+						<div class="collapse navbar-collapse" id="navbarSupportedContent">
+							<ul class="nav navbar-nav ml-auto">
+								<li class="nav-item active">
+									<a class="nav-link" href="{{ path('account') }}" title="Aller sur mon compte">{{app.user.firstname}}
+										{{app.user.lastname}}</a>
+								</li>
+								<li class="nav-item">
+									<a class="nav-link" href="{{ path('home') }}">
+										Retour à l'accueil
+									</a>
+								</li>
+								<li class"nav-item">
+									<a class="nav-link" href="{{ path('app_logout') }}">
+										<i class="fas fa-sign-out-alt" title="Se déconnecter"></i>
+									</i>
+								</li>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</nav>
+
+		<div class="container-xxl">
+			{% block admin_utilisateur %}
+			{% endblock %}
+		</div>
+		
+		{% block javascripts %}
+			<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+			<script src="https://cdnjs.cloudflare.com/ajax/libs/TableDnD/1.0.3/jquery.tablednd.min.js"></script>
+			<script src="{{ asset('assets/js/custom.js') }}"></script>
+			<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>	
+			<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+			<script src="{{ asset('assets/js/bootstrap-table.js') }}"></script>
+			<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+			<script src="https://unpkg.com/bootstrap-table@1.18.3/dist/extensions/reorder-rows/bootstrap-table-reorder-rows.min.js"></script>
+		{% endblock %}
+	</body>
+</html>

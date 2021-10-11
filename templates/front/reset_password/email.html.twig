@@ -1,0 +1,13 @@
+<p>Bonjour,</p>
+
+
+<p>Suite à ta demande, nous t'avons envoyé un lien pour modifier le mot de passe de ton compte</p>
+<p>Clique sur le lien puis effectue le changement de ce mot de passe :</p>
+
+<a href="{{ url('app_reset_password', {token: resetToken.token}) }}">{{ url('app_reset_password', {token: resetToken.token}) }}</a>
+
+{# <p>Le lien expire dans {{ resetToken.expirationMessageKey|trans(resetToken.expirationMessageData, 'ResetPasswordBundle') }}.</p> #}
+
+<br>
+<p>A très vite sur l'application<p>
+<p>Léquipe du Support WEB Shebam<p>

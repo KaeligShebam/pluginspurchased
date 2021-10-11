@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+
+
+{% block content %}
+    <form class="form-signin text-center background-login was-validated bg-white-shebam was-validated align-middle" method="post">
+      {# <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> #}
+	{% if error %}
+		<div class="message-error">{{ error.messageKey|trans(error.messageData, 'security') }}</div><br>
+	{% endif %}
+      	<h1 class="h3 mb-3 font-weight-normal">Connectes toi</h1>
+		<div class="form-group mt-4">
+			<input class="input-group-lg mb-3 form-control" type="email" value="{{ last_username }}" name="email" placeholder="Email" required autofocus>
+		</div>
+			<input class="field is-invalid form-control input-sm" type="password" name="password" placeholder="Mot de passe" required>
+		<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+		<div class="form-group">
+			<input type="submit" name="submit" class="btn-md btn-blue-shebam mt-3" value="Connexion">
+		</div>
+	    <div id="register-link" class="text-left mt-5">
+			<span> Aie c'est quoi déjà? - </span><a href="{{path('app_forgot_password_request')}}" class="text-info"> Mot de passe oublié</a>
+           <span> Pas encore inscrit? - </span><a href="{{path('register')}}" class="text-info"> Inscription</a>
+        </div>
+    </form>
+{% endblock %}

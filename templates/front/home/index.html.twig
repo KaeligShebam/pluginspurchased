@@ -1,0 +1,357 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{%  block title %}Accueil - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}</title>
+    </style>
+</head>
+	<body>
+		<div class="mb-5">
+			<h1 class="text-center color-blue-dark-shebam mb-3">Liste des tâches</h1>
+			<hr>
+			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
+				<div class="mb-5"></div>
+			{% else %}
+				<p class="text-center mb-4 mt-4">Connectes toi pour pouvoir gérer les tâches !</p>
+			{% endif %}		
+			<div class="row">
+				<div class="col padding-mobile">
+					<!-- Table Priority 1 -->
+					<div class="text-center bg-yellow-shebam color-white-shebam p-3 font-weight-bold">Priorité 1</div>
+					<table id="tableOrderTaskP1" class="table mb-5" data-toggle="table" {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%} data-use-row-attr-func="true" data-reorderable-rows="true" {% endif %}>
+						<thead class="bg-grey-shebam color-white-shebam font-weight-bold">
+							<tr>
+								<th data-field="id" data-visible="false">ID</th>
+								<th data-field="customer" {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}data-sortable="true"{% endif %} scope="col">Sujet</th>
+								<th data-field="subject" {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}data-sortable="true"{% endif %} scope="col">Objet</th>
+								<th data-field="person" {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}data-sortable="true"{% endif %} scope="col">Personne(s)</th>
+								{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+									<th scope="col">Action</th>
+								{% endif %}
+							</tr>
+						</thead>
+						<tbody>
+							{% for task in task %}
+								{% if task.p1 == 1 and task.p2 == 0 %}
+									<tr class="bg-white-shebam">
+										<td>{{ task.id }}</td>
+										<td >{{task.customer}}</td>
+										<td>{% if task.object is empty %}{% else %}{{task.object}}<br>{% endif %}
+											{% if task.subobject1 is empty %}{% else %}{{task.subobject1}}<br>{% endif %} 
+											{% if task.subobject1 is empty %}{% else %}{{task.subobject2}}<br>{% endif %}
+											{% if task.subobject1 is empty %}{% else %}{{task.subobject3}}<br>{% endif %}
+										</td>
+										<td>{% for task in task.users %}
+												{{ task.firstname }} <br>
+											{% endfor %}
+										</td>
+									{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+										<td>
+											<a href="{{ path('task_change_to_p2_front', {"id": task.id}) }}"><span>P2</span></a>
+												|
+											<a href="{{ path('task_list_modify_admin', {"id": task.id}) }}"><i class="fas fa-cog"></i></a>
+												|
+											<a href="{{ path('task_list_detete_admin', {"id": task.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer une tâche P2')"><i class="fas fa-trash"></i></a>
+										</td>
+									{% endif %}
+									</tr>
+								{% endif %}
+							{% endfor %}
+						</tbody>
+					</table>
+					{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+						<div class="btn-add-task-home">
+							<p class="mt-3 text-center"><a class="btn-yellow-shebam" href="#ajouterunetache">Ajouter</a></p>
+						</div>
+						<div class="btn-add-task-home-mobile">
+							<p class="mt-3 text-center"><a class="btn-yellow-shebam" href="{{ path('task_list_add_admin') }}">Ajouter</a></p>
+						</div>
+					{% endif %}
+				</div>
+				<div class="col">
+					<!-- Table Priority 2 -->
+					<div class="text-center bg-green-light-shebam color-white-shebam p-3 font-weight-bold">Priorité 2</div>
+					<table id="tableOrderTaskP2" class="table mb-5" data-toggle="table" {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%} data-use-row-attr-func="true" data-reorderable-rows="true" {% endif %}>
+						<thead class="bg-grey-shebam color-white-shebam font-weight-bold">
+							<tr>
+								<th data-field="id" data-visible="false">ID</th>
+								<th data-field="customer" {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}data-sortable="true"{% endif %} scope="col">Sujet</th>
+								<th data-field="subject" {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}data-sortable="true"{% endif %} scope="col">Objet</th>
+								<th data-field="person" {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}data-sortable="true"{% endif %} scope="col">Personne(s)</th>
+								{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+								<th scope="col">Action</th>
+								{% endif %}
+							</tr>
+						</thead>
+						<tbody>
+						{% for task in task %}
+							{% if task.p1 == 0 and task.p2 == 1 %}
+								<tr class="bg-white-shebam">
+									<td>{{ task.id }}</td>
+									<td>{{task.customer}}</td>
+									<td>{% if task.object is empty %}{% else %}{{task.object}}<br>{% endif %}
+										{% if task.subobject1 is empty %}{% else %}{{task.subobject1}}<br>{% endif %} 
+										{% if task.subobject3 is empty %}{% else %}{{task.subobject2}}<br>{% endif %}
+										{% if task.subobject3 is empty %}{% else %}{{task.subobject3}}<br>{% endif %}
+									</td>
+									<td>{% for task in task.users %}
+											{{ task.firstname }} <br>
+										{% endfor %}
+									</td>
+									{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+										<td>
+											<a href="{{ path('task_change_to_p1_front', {"id": task.id}) }}"><span>P1</span></a>
+												|
+											<a href="{{ path('task_list_modify_admin', {"id": task.id}) }}"><i class="fas fa-cog"></i></a>
+												|
+											<a href="{{ path('task_list_detete_admin', {"id": task.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer une tâche P2')"><i class="fas fa-trash"></i></a>
+										</td>
+									{% endif %}
+								</tr>
+							{% endif %}
+						{% endfor %}
+						</tbody>
+					</table>					
+
+					{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+						<div class="btn-add-task-home">
+							<p class="mt-3 text-center"><a class="btn-green-light-shebam" href="#ajouterunetache">Ajouter</a></p>
+						</div>
+						<div class="btn-add-task-home-mobile">
+							<p class="mt-3 text-center"><a class="btn-green-light-shebam" href="{{ path('task_list_add_admin') }}">Ajouter</a></p>
+						</div>
+					{% endif %}
+
+				</div>
+			</div>
+
+			<div class="mt-5"></div>
+
+			<div class="row">
+
+				<div class="col">
+					<!-- Table Appointment -->
+					<div class="text-center bg-pink-shebam color-white-shebam p-3 font-weight-bold">Rendez-vous</div>
+					<table id="tableOrderAppointment" class="table" data-toggle="table">
+						<thead class="bg-grey-shebam color-white-shebam">
+							<tr>
+								<th data-field="id" data-visible="false">ID</th>
+								<th  scope="col">Sujet</th>
+								<th scope="col">Objet</th>
+								<th scope="col">Personne(s)</th>
+								<th scope="col">Date et heure</th>
+							{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+								<th scope="col">Action</th>
+							{% endif %}
+							</tr>
+						</thead>
+						<tbody>
+							{% for appointment in appointment %}					
+									<tr class="bg-white-shebam">
+										<td>{{appointment.id}}</td>
+										<td>{{appointment.name}}</td>
+										<td>{{appointment.subject}}</td>
+										<td>
+										{% for appointment in appointment.user %}
+											{{ appointment.firstname }} <br>
+										{% endfor %}
+										</td>
+										<td>{{ appointment.hoursappointment|date("d-m-Y")  }} à {{appointment.hoursappointment|date('H:i')}}</td>
+										{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+										<td>
+											<a href="{{ path('task_appointment_modify_admin', {"id": appointment.id}) }}"><i class="fas fa-cog"></i></a>
+												|
+											<a href="{{ path('appointment_detete_home', {"id": appointment.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer un rendez-vous')"><i class="fas fa-trash"></i></a>
+										</td>
+									{% endif %}
+									</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+
+					{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+						<div class="btn-add-task-home">
+							<p class="mt-3 text-center"><a class="btn-pink-shebam" href="#ajouterunrendezvous">Ajouter</a></p>
+						</div>
+						<div class="btn-add-task-home-mobile">
+							<p class="mt-3 text-center"><a class="btn-pink-shebam" href="{{ path('task_appointment_add_admin') }}">Ajouter</a></p>
+						</div>
+					{% endif %}
+				</div>
+				<div class="col padding-mobile">
+					<!-- Table Quote -->
+					<div class="text-center bg-blue-light-shebam color-white-shebam p-3 font-weight-bold">Devis</div>
+					<table id="tableOrderQuote" class="table" data-toggle="table">
+						<thead class="bg-grey-shebam color-white-shebam font-weight-bold">
+							<tr>
+								<th data-field="id" data-visible="false">ID</th>
+								<th scope="col">Sujet</th>
+								<th scope="col">Objet</th>
+								<th scope="col">Personne(s)</th>
+							{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+								<th scope="col">Action</th>
+							{% endif %}
+							</tr>
+						</thead>
+						<tbody>
+							{% for quote in quote %}
+								<tr class="bg-white-shebam">
+									<td>{{ quote.id }}</td>
+									<td>{{ quote.subject }}</td>
+									<td>{{ quote.object }}</td>
+									<td>
+									{% for quote in quote.person %}
+										{{ quote.firstname }} <br>
+									{% endfor %}
+									</td>
+								{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+									<td>
+										<a href="{{ path('task_quote_modify_admin', {"id": quote.id}) }}"><i class="fas fa-cog"></i></a>
+											|
+										<a href="{{ path('quote_detete_home', {"id": quote.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer un devis')"><i class="fas fa-trash"></i></a>
+									</td>
+								{% endif %}
+								</tr>
+							{% endfor %}
+						</tbody>
+					</table>
+
+					{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+						<div class="btn-add-task-home">
+							<p class="mt-3 text-center"><a class="btn-blue-light-shebam" href="#ajouterundevis">Ajouter</a></p>
+						</div>
+						<div class="btn-add-task-home-mobile">
+							<p class="mt-3 text-center"><a class="btn-blue-light-shebam" href="{{ path('task_quote_add_admin') }}">Ajouter</a></p>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+
+			<!-- POPUP -->
+			<!-- Task 1 -->
+			<div id="ajouterunetache" class="overlay">
+				<div class="was-validated popup bg-white-light-shebam is-valid">
+					<h2 class="mb-4">Ajout d'une tâche</h2>
+					<a class="close" href=""><i class="fas fa-times"></i></a>
+						<div class="content">
+						{{ form_start(form_task_p1_add_front) }}
+								<div class="form-group">
+									{{ form_row(form_task_p1_add_front.customer) }}
+									{{ form_row(form_task_p1_add_front.object) }}
+									{{ form_row(form_task_p1_add_front.subobject1) }}
+									{{ form_row(form_task_p1_add_front.subobject2) }}
+									{{ form_row(form_task_p1_add_front.subobject3) }}
+									{{ form_row(form_task_p1_add_front.users) }}
+									{{ form_row(form_task_p1_add_front.p1) }}
+									{{ form_row(form_task_p1_add_front.p2) }}
+								</div>
+								<div class="form-group">
+									{{ form_row(form_task_p1_add_front.submit) }}
+								</div>
+						{{ form_end(form_task_p1_add_front) }}
+					</div>
+				</div>
+			</div>
+
+			<!-- Appointment -->
+			<div id="ajouterunrendezvous" class="overlay">
+				<div class="was-validated popup bg-white-light-shebam is-valid">
+				<h2 class="mb-4">Ajout un rendez-vous</h2>
+				<a class="close" href=""><i class="fas fa-times"></i></a>
+					<div class="content">
+						{{ form_start(form_appointment_add_front) }}
+								<div class="form-group">
+									{{ form_row(form_appointment_add_front.name) }}
+									{{ form_row(form_appointment_add_front.subject) }}
+									{{ form_row(form_appointment_add_front.hoursappointment) }}
+									{{ form_row(form_appointment_add_front.user) }}
+								</div>
+								<div class="form-group">
+									{{ form_row(form_appointment_add_front.submit) }}
+								</div>
+						{{ form_end(form_appointment_add_front) }}
+					</div>
+				</div>
+			</div>
+			<!-- Quote -->
+			<div id="ajouterundevis" class="overlay">
+				<div class="was-validated popup bg-white-light-shebam is-valid">
+				<h2 class="mb-4">Ajout un devis</h2>
+				<a class="close" href=""><i class="fas fa-times"></i></a>
+					<div class="content">
+						{{ form_start(form_quote_add_front) }}
+								<div class="form-group">
+									{{ form_row(form_quote_add_front.subject) }}
+									{{ form_row(form_quote_add_front.object) }}
+									{{ form_row(form_quote_add_front.person) }}
+								</div>
+								<div class="form-group">
+									{{ form_row(form_quote_add_front.submit) }}
+								</div>
+						{{ form_end(form_quote_add_front) }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+{%  endblock %}
+{% block javascripts %}
+	{{ parent() }}
+	<script>
+		$(()=>{
+			$("#tableOrderTaskP1").on("reorder-row.bs.table", (e, table, row, old) => {
+				$.ajax({
+					url: "{{ path('home_reorder_row')}}",
+					method: "POST",
+					data: {
+						table: JSON.stringify(table),
+						context: 1
+					},
+					dataType: "JSON",
+					success: (response)=>{console.log(response)}
+				})
+			})
+			$("#tableOrderTaskP2").on("reorder-row.bs.table", (e, table, row, old) => {
+				$.ajax({
+					url: "{{ path('home_reorder_row')}}",
+					method: "POST",
+					data: {
+						table: JSON.stringify(table),
+						context: 1
+					},
+					dataType: "JSON",
+					success: (response)=>{console.log(response)}
+				})
+			})
+			$("#tableOrderAppointment").on("reorder-row.bs.table", (e, table, row, old) => {
+				$.ajax({
+					url: "{{ path('home_reorder_row')}}",
+					method: "POST",
+					data: {
+						table: JSON.stringify(table),
+						context: 2
+					},
+					dataType: "JSON",
+					success: (response)=>{console.log(response)}
+				})
+			})
+			$("#tableOrderQuote").on("reorder-row.bs.table", (e, table, row, old) => {
+				$.ajax({
+					url: "{{ path('home_reorder_row')}}",
+					method: "POST",
+					data: {
+						table: JSON.stringify(table),
+						context: 3
+					},
+					dataType: "JSON",
+					success: (response)=>{console.log(response)}
+				})
+			})
+		})
+	</script>
+{% endblock %}
