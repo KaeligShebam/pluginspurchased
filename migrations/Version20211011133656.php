@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20211011092228 extends AbstractMigration
+final class Version20211011133656 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -20,16 +20,12 @@ final class Version20211011092228 extends AbstractMigration
     public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE appointment DROP archived');
-        $this->addSql('ALTER TABLE quote DROP archived');
-        $this->addSql('ALTER TABLE task DROP archived');
+        $this->addSql('CREATE TABLE plugins (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(75) NOT NULL, link VARCHAR(255) NOT NULL, purchaseddate DATETIME NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
-        $this->addSql('ALTER TABLE appointment ADD archived TINYINT(1) DEFAULT NULL');
-        $this->addSql('ALTER TABLE quote ADD archived TINYINT(1) DEFAULT NULL');
-        $this->addSql('ALTER TABLE task ADD archived TINYINT(1) DEFAULT NULL');
+        $this->addSql('DROP TABLE plugins');
     }
 }

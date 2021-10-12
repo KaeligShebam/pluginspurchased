@@ -53,21 +53,6 @@ class User implements UserInterface
      */
     private $lastname;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Task::class, mappedBy="users")
-     */
-    private $tasks;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Appointment::class, mappedBy="user")
-     */
-    private $appointments;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Quote::class, mappedBy="person")
-     */
-    private $quotes;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -170,92 +155,4 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Task[]
-     */
-    public function getTaches(): Collection
-    {
-        return $this->tasks;
-    }
-
-    public function addTach(Task $tas): self
-    {
-        if (!$this->tasks->contains($tas)) {
-            $this->tasks[] = $tas;
-            $tas->addUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeTach(Task $tas): self
-    {
-        if ($this->tasks->removeElement($tas)) {
-            $tas->removeUser($this);
-        }
-
-        return $this;
-    }
-
-    public function __toString()
-    {
-    return $this->firstname;
-    }
-
-    /**
-     * @return Collection|Appointment[]
-     */
-    public function getAppointments(): Collection
-    {
-        return $this->appointments;
-    }
-
-    public function addAppointments(Appointment $appointmentt): self
-    {
-        if (!$this->appointments->contains($appointmentt)) {
-            $this->appointments[] = $appointmentt;
-            $appointmentt->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeRendezvouse(Appointment $appointmentt): self
-    {
-        if ($this->appointments->removeElement($appointmentt)) {
-            // set the owning side to null (unless already changed)
-            if ($appointmentt->getUser() === $this) {
-                $appointmentt->setUser(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Quote[]
-     */
-    public function getQuotes(): Collection
-    {
-        return $this->quotes;
-    }
-
-    public function addQuote(Quote $quote): self
-    {
-        if (!$this->quotes->contains($quote)) {
-            $this->quotes[] = $quote;
-            $quote->addPerson($this);
-        }
-
-        return $this;
-    }
-
-    public function removeQuote(Quote $quote): self
-    {
-        if ($this->quotes->removeElement($quote)) {
-            $quote->removePerson($this);
-        }
-
-        return $this;
-    }
 }
