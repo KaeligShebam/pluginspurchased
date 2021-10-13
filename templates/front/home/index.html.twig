@@ -13,46 +13,34 @@
 		<div class="mb-5">
 			<h1 class="text-center color-blue-dark-shebam mb-3">Liste des plugins</h1>
 			<hr>
-			{% if is_granted('IS_AUTHENTICATED_FULLY') %}
-				<div class="mb-5"></div>
-			{% else %}
-				<p class="text-center mb-4 mt-4">Connectes toi pour pouvoir gérer la liste des plugins !</p>
-			{% endif %}		
+			<div class="mb-5"></div>	
 			<div class="d-flex justify-content-center">
 				<div class="col padding-mobile">
 					{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
-					<table id="tablePopupPlugin" class="table mb-5" data-toggle="table" {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%} data-use-row-attr-func="true" data-reorderable-rows="true" {% endif %}>
-						<thead class="bg-grey-shebam color-white-shebam font-weight-bold">
-							<tr>
-								<th scope="col">Nom du plugin</th>
-								<th scope="col">Lien</th>
-								<th scope="col">Date d'achat</th>
-								<th scope="col">Durée</th>
-								<th scope="col">Prix</th>
-								<th scope="col">Client</th>
-								<th scope="col">Action</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr class="bg-white-shebam">
-							{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
-								{% for plugin in plugin %}
-								<td>{{plugin.name}}</td>
-								<td><a href="{{plugin.link}}" target="new">{{plugin.link}}</a></td>
-								<td>{{plugin.purchaseddate|date('d-m-Y')}}</td>
-								<td>{{plugin.duration|date('d-m-Y')}}</td>
-								<td>{{plugin.price}}</td>
-								<td>{{plugin.customer}}</td>
-								<td>
+						{% for plugin in plugin %}
+						<div class="feature-card">
+							<div class="feature-card-tilte">
+								<h3>
+									{{plugin.name}}
+								</h3>
+							</div>
+							<div class="feature-card-details">
+
+								<h2 class="text-center">{{plugin.name}}</h2>
+								<p>Lien: <a href="{{plugin.link}}"><span>{{plugin.link}}</a></span></p>
+								<p>Date d'achat: <span>{{plugin.purchaseddate|date('d-m-Y') }}</span></p>
+								<p>Date d'expiration: <span>{{plugin.expirationdate|date('d-m-Y') }}</span></p>
+								<p>Durée: <span>{{plugin.duration}}</span></p>
+								<p>Prix: <span>{{plugin.price}}</span></p>
+								<p>Client: <span>{{plugin.customer}}</span></p>
+								<p>
 									<a href=""><i class="fas fa-cog"></i></a>
-										|
-									<a href="{{ path('delete_plugin_front', {"id": plugin.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer une tâche P2')"><i class="fas fa-trash"></i></a>
-								</td>
-								{% endfor %}
-							{% endif %}
-							</tr>
-						</tbody>
-					</table>
+                                	|
+                            		<a href="{{ path('delete_plugin_front', {"id": plugin.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer une tâche P2')"><i class="fas fa-trash"></i></a>
+								</p>
+							</div>
+						</div>
+						{% endfor %}
 					{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
 
 						<div class="btn-add-task-home-mobile">
@@ -61,19 +49,13 @@
 					{% endif %}
 				</div>
 				{% else %}
-				<p>no</p>
+				<p class="text-center mb-4 mt-4">Connecte-toi pour pouvoir gérer la liste des plugins !</p>
 				{% endif %}
-				<div class="col">
-
-				</div>
 			</div>
+
 
 			<!-- POPUP -->
 			<!-- Plugin -->
-
-			<div class="btn-add-task-home">
-				<p class="mt-3 text-center"><a class="btn-yellow-shebam" href="" data-toggle="modal" data-target="#exampleModalCenter">Ajouter</a></p>
-			</div>
 
 			<!-- Modal -->
 			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
@@ -91,6 +73,7 @@
 								{{ form_row(form_plugin_add_front.name) }}
 								{{ form_row(form_plugin_add_front.link) }}
 								{{ form_row(form_plugin_add_front.purchaseddate) }}
+								{{ form_row(form_plugin_add_front.expirationdate) }}
 								{{ form_row(form_plugin_add_front.duration) }}
 								{{ form_row(form_plugin_add_front.price) }}
 								{{ form_row(form_plugin_add_front.customer) }}

@@ -33,7 +33,7 @@ class Plugins
     private $purchaseddate;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="string", length=255)
      */
     private $duration;
 
@@ -46,6 +46,11 @@ class Plugins
      * @ORM\Column(type="string", length=255)
      */
     private $customer;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $expirationdate;
 
     public function getId(): ?int
     {
@@ -88,12 +93,12 @@ class Plugins
         return $this;
     }
 
-    public function getDuration(): ?\DateTimeInterface
+    public function getDuration(): ?string
     {
         return $this->duration;
     }
 
-    public function setDuration(\DateTimeInterface $duration): self
+    public function setDuration(string $duration): self
     {
         $this->duration = $duration;
 
@@ -120,6 +125,18 @@ class Plugins
     public function setCustomer(string $customer): self
     {
         $this->customer = $customer;
+
+        return $this;
+    }
+
+    public function getExpirationdate(): ?\DateTimeInterface
+    {
+        return $this->expirationdate;
+    }
+
+    public function setExpirationdate(\DateTimeInterface $expirationdate): self
+    {
+        $this->expirationdate = $expirationdate;
 
         return $this;
     }

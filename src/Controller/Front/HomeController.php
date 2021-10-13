@@ -2,7 +2,9 @@
 
 namespace App\Controller\Front;
 
+use App\Entity\User;
 use App\Entity\Plugins;
+use App\Repository\UserRepository;
 use App\Repository\PluginsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Form\Front\PluginsPurchasedAddType;
@@ -52,6 +54,32 @@ class HomeController extends AbstractController
         $em->flush();
 
         return $this->redirectToRoute("home");
+    }
+
+    /**
+     * @Route("/admin", name="admin")
+     */
+    public function admin(UserRepository $user, PluginsRepository $pluginsListAdmin): Response
+    {
+
+
+        return $this->render('front/admin/index.html.twig', [
+            // 'notification' => $notification,
+            'user' => $user->findAll(),
+            'plugin' => $pluginsListAdmin->findBy([], ['name' => 'ASC']),
+        ]);
+    }
+
+    /**
+     * @Route("/utilisateur/supprimer/{id}", name="delete_user_front")
+     */
+    public function deleteUser(User $userDelete): RedirectResponse
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($userDelete);
+        $em->flush();
+
+        return $this->redirectToRoute("admin");
     }
 
 }

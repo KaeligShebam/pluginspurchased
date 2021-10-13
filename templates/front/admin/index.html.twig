@@ -1,0 +1,87 @@
+{% extends '/base.html.twig' %}
+
+{%  block title %}Administration - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <h2 class="text-center">Bienvenue dans l'administration {{app.user.firstname}}</h2>
+    <div class="mb-5"></div>
+    <div class="row">
+        <div class="col">
+            <h3 class="text-center color-blue-dark-shebam mb-3">Liste des plugins</h3>
+            <hr>
+            <div class="mb-5"></div>
+                {% for plugin in plugin %}
+                <div class="feature-card">
+                    <div class="feature-card-tilte">
+                        <h3>
+                            {{plugin.name}}
+                        </h3>
+                    </div>
+                    <div class="feature-card-details">
+
+                        <h2 class="text-center">{{plugin.name}}</h2>
+                        <p>Lien: <a href="{{plugin.link}}"><span>{{plugin.link}}</a></span></p>
+                        <p>Date d'achat: <span>{{plugin.purchaseddate|date('d-m-Y') }}</span></p>
+                        <p>Date d'expiration: <span>{{plugin.expirationdate|date('d-m-Y') }}</span></p>
+                        <p>Durée: <span>{{plugin.duration}}</span></p>
+                        <p>Prix: <span>{{plugin.price}}</span></p>
+                        <p>Client: <span>{{plugin.customer}}</span></p>
+                        <p>
+                            <a href=""><i class="fas fa-cog"></i></a>
+                            |
+                            <a href="{{ path('delete_plugin_front', {"id": plugin.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer une tâche P2')"><i class="fas fa-trash"></i></a>
+                        </p>
+                    </div>
+                </div>
+                {% endfor %}
+        </div>
+        <div class="col">
+            <h3 class="text-center color-blue-dark-shebam mb-3">Liste des utilisateurs</h3>
+            <hr>
+            <div class="mb-5"></div>	
+            <table class="table mb-5" data-toggle="true">
+                <thead class="bg-grey-shebam color-white-shebam font-weight-bold">
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th scope="col">Prénom</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Rôle</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bg-white-shebam">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+                        {% for user in user %}
+                        <td>{{user.firstname}}</td>
+                        <td>{{user.lastname}}</td>
+                        <td>{{user.email}}</td>
+                        <td>                        
+                            {# On boucle sur les rôles #}
+                            {% for role in user.roles %}
+                                {% if role == "ROLE_USER" %}
+                                    Utilisateur
+                                {% elseif role == "ROLE_PRO" %}
+                                    Entreprise
+                                {% elseif role == "ROLE_ADMIN" %}
+                                    Administrateur
+                                {% endif %}
+                            {% endfor %}
+                        </td>
+                        <td>
+                            <a href=""><i class="fas fa-cog"></i></a>
+                                |
+                            <a href="{{ path('delete_user_front', {"id": user.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer un utilisateur')"><i class="fas fa-trash"></i></a>
+                        </td>
+                        {% endfor %}
+                    {% endif %}
+                    </tr>
+                </tbody>
+            </table>       
+        </div>
+    </div>
+</div>
+
+{% endblock %}

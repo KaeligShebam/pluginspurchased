@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
 class PluginsPurchasedAddType extends AbstractType
 {
@@ -19,44 +20,44 @@ class PluginsPurchasedAddType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Nom du plugin',
                 'attr' => [
-                    'placeholder' => 'Nom du plugin',
                     'class' => 'label-custom'
                 ]
             ])
-            ->add('link', TextType::class, [
+            ->add('link', UrlType::class, [
                 'label' => 'Lien',
                 'attr' => [
-                    'placeholder' => 'Lien',
                     'class' => 'label-custom'
                 ]
             ])
             ->add('purchaseddate', DateType::class, [
                 'label' => 'Date d\'achat',
                 'attr' => [
-                    'placeholder' => 'Date d\'achat',
                     'class' => 'label-custom'
                 ],
                 'widget' => 'single_text'
             ])
-            ->add( 'duration', DateType::class, [
-                'label' => 'Durée',
+            ->add('expirationdate', DateType::class, [
+                'label' => 'Date d\'expiration',
                 'attr' => [
-                    'placeholder' => 'Durée',
                     'class' => 'label-custom'
                 ],
                 'widget' => 'single_text'
+            ])
+            ->add( 'duration', TextType::class, [
+                'label' => 'Durée',
+                'attr' => [
+                    'class' => 'label-custom'
+                ]
             ])
             ->add('customer', TextType::class, [
                 'label' => 'Client',
                 'attr' => [
-                    'placeholder' => 'Client',
                     'class' => 'label-custom'
                 ]
             ])
             ->add('price', TextType::class, [
                 'label' => 'Prix',
                 'attr' => [
-                    'placeholder' => 'Prix',
                     'class' => 'label-custom'
                 ]
             ])

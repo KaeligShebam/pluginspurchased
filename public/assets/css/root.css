@@ -3,6 +3,7 @@
     --color-white: #ffffff;
     --color-white-light: #f4f0f4;
     --color-black: #000000;
+    --color-yellow-light: #fcd001;
     --color-yellow-dark: #caa904;
     --color-grey: #b1a7a6;
     --color-red: #a4161a;
@@ -19,6 +20,7 @@
 .color-white-light-shebam{color: var(--color-white-light)}
 .color-black-shebam{color: var(--color-black)}
 .color-red{color: var(--color-grey)}
+.color-yellow-light{color: var(--color-yellow-light)}
 .color-yellow-dark{color: var(--color-yellow-dark)}
 .color-yellow-shebam{color: var(--yellow-shebam)}
 .color-grey-shebam{color: var(--color-grey)}
