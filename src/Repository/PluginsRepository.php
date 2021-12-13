@@ -2,9 +2,10 @@
 
 namespace App\Repository;
 
+use DateTimeInterface;
 use App\Entity\Plugins;
-use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 
 /**
  * @method Plugins|null find($id, $lockMode = null, $lockVersion = null)
@@ -47,4 +48,20 @@ class PluginsRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    /**
+     * @return Plugins[]
+     */
+    public function findBirthdayUsers(DateTimeInterface $range = null): array
+    {
+        if (null === $range) {
+            $range = new \DateTime('+1 week');
+        }
+
+        return $this->createQueryBuilder('u')
+            ->where("DATE_FORMAT(u.expirationdate,'%d-%m-%d') = :range")
+            ->setParameter('range', $range->format('d-m-d'))
+            ->getQuery()
+            ->getResult();
+    }
 }
