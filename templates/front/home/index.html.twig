@@ -19,14 +19,14 @@
 					{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
 						{% for plugin in plugin %}
 						<div class="feature-card">
-							<div class="feature-card-tilte">
+							<div class="feature-card-title">
 								<h3>
 									{{plugin.name}}
 								</h3>
 							</div>
 							<div class="feature-card-details">
 
-								<h2 class="text-center">{{plugin.name}}</h2>
+								<h2 class="text-center ">{{plugin.name}}</h2>
 								<p>Lien: <a href="{{plugin.link}}"><span>{{plugin.link}}</a></span></p>
 								<p>Date d'achat: <span>{{plugin.purchaseddate|date('d-m-Y') }}</span></p>
 								<p>Date d'expiration: <span>{{plugin.expirationdate|date('d-m-Y') }}</span></p>
