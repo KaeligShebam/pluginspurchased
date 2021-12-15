@@ -4,13 +4,28 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="/public/css/front/mail.css">
+    <style>
+    .test{background: #00263A; display: inline-block; width: 20%; padding: 15px;margin-top: 15px; border-radius: 10px;color: #ffffff; margin-bottom: 20px;}
+    a{font-size:"Open sans";text-decoration: none; color: #ffffff;}
+    </style>
 </head>
 		<div class="mb-5">
 			<h1 class="text-center">Expiration des plugins</h1>
 			<hr>
 			<div class="mb-5"></div>
             <p>Bonjour la team SHEBAM !</p>
-            <p>Vous avez acheté un ou des plugin(s) qui arrive(nt) a expiration: </p>
+            <p>Vous avez acheté un ou des plugin(s) qui arrive(nt) bientôt à expiration: </p>
+            <p>Voici la liste: </p>
+            {% for plugin in plugins %}
+            <div class="test">
+                <p>Nom: {{plugin.name}}</p>
+                <p>Prix: {{plugin.price}}</p>
+                <p>Date d'expiration: {{ plugin.expirationdate|date('d-m-y') }}</p>
+                <p>Lien: <a href="{{plugin.link}}" target="new">Clique moi</a></p>
+            </div>
+            {% endfor %}
+            <p>Ne pas oublier de rénouveller et/ou de demander au client son choix</p>
+            <p>Bonne journée.</p>
+            <p>Le Support WEB SHEBAM</p>
 		</div>
 </html>

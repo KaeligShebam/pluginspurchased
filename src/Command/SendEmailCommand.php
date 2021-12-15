@@ -2,6 +2,7 @@
 //src/Command/SendEmailCommand.php
 namespace App\Command;
 
+use App\Entity\Plugins;
 use App\Service\SendMail;
 use Symfony\Component\Mime\Address;
 use App\Repository\PluginsRepository;
@@ -35,7 +36,6 @@ class SendEmailCommand extends Command
     {
         parent::__construct();
         $this->pluginRepository = $pluginRepository;
-        
         $this->mailer = $mailer;
     }
  
@@ -43,21 +43,15 @@ class SendEmailCommand extends Command
     {
 
         $io = new SymfonyStyle($input, $output);
+        $pluginExpiration = $this->pluginRepository->findExpirationDate();
+        $pluginListCount = count($pluginExpiration);
 
-        $plugins = $this->pluginRepository->findAll();
-        $pluginDate = $this->pluginRepository->findBirthdayUsers();
-        $pluginDateCount = count($pluginDate);
-
-        if($pluginDateCount === 0){
-            $io->progressStart($pluginDateCount);
+        if($pluginListCount === 0){
             $io->note("Il n'y a aucun plugin qui arrivent à expiration");
-            $io->success("$pluginDateCount mail envoyé");
-        } elseif($pluginDateCount === 1) {
-            $io->progressStart($pluginDateCount);
-            $io->success("$pluginDateCount mail envoyé");
-            $this->mailer->sendReminder();
+        } else {
+            $io->success("$pluginListCount plugin(s) et un mail envoyé !");
+            $this->mailer->sendReminder($pluginExpiration);
         }
-        $io->progressFinish();
         
         return Command::SUCCESS;
     }

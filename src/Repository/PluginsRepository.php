@@ -52,7 +52,7 @@ class PluginsRepository extends ServiceEntityRepository
     /**
      * @return Plugins[]
      */
-    public function findBirthdayUsers(DateTimeInterface $range = null): array
+    public function findExpirationDate(DateTimeInterface $range = null): array
     {
         if (null === $range) {
             $range = new \DateTime('+1 week');
