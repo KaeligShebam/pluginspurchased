@@ -52,6 +52,11 @@ class Plugins
      */
     private $expirationdate;
 
+    /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $cms;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -137,6 +142,18 @@ class Plugins
     public function setExpirationdate(\DateTimeInterface $expirationdate): self
     {
         $this->expirationdate = $expirationdate;
+
+        return $this;
+    }
+
+    public function getCms(): ?string
+    {
+        return $this->cms;
+    }
+
+    public function setCms(string $cms): self
+    {
+        $this->cms = $cms;
 
         return $this;
     }

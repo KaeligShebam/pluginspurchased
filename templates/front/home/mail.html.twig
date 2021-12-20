@@ -21,6 +21,7 @@
                 <p>Nom: {{plugin.name}}</p>
                 <p>Prix: {{plugin.price}}</p>
                 <p>Date d'expiration: {{ plugin.expirationdate|date('d-m-y') }}</p>
+				<p>CMS: <span>{{plugin.cms}}</span></p>
                 <p>Lien: <a href="{{plugin.link}}" target="new">Clique moi</a></p>
             </div>
             {% endfor %}

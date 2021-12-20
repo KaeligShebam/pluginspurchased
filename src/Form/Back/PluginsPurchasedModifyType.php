@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Front;
+namespace App\Form\Back;
 
 use App\Entity\Plugins;
 use Symfony\Component\Form\AbstractType;
@@ -12,7 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
-class PluginsPurchasedAddType extends AbstractType
+class PluginsPurchasedModifyType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -43,7 +43,7 @@ class PluginsPurchasedAddType extends AbstractType
                 ],
                 'widget' => 'single_text'
             ])
-            ->add( 'duration', TextType::class, [
+            ->add('duration', TextType::class, [
                 'label' => 'Durée',
                 'attr' => [
                     'class' => 'label-custom'
@@ -70,8 +70,7 @@ class PluginsPurchasedAddType extends AbstractType
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer',
                 'attr' => ['class' => 'btn-yellow-shebam']
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

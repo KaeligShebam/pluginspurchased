@@ -12,30 +12,43 @@
             <h3 class="text-center color-blue-dark-shebam mb-3">Liste des plugins</h3>
             <hr>
             <div class="mb-5"></div>
-                {% for plugin in plugin %}
-                <div class="feature-card">
-                    <div class="feature-card-tilte">
-                        <h3>
-                            {{plugin.name}}
-                        </h3>
-                    </div>
-                    <div class="feature-card-details">
-
-                        <h2 class="text-center">{{plugin.name}}</h2>
-                        <p>Lien: <a href="{{plugin.link}}"><span>{{plugin.link}}</a></span></p>
-                        <p>Date d'achat: <span>{{plugin.purchaseddate|date('d-m-Y') }}</span></p>
-                        <p>Date d'expiration: <span>{{plugin.expirationdate|date('d-m-Y') }}</span></p>
-                        <p>Durée: <span>{{plugin.duration}}</span></p>
-                        <p>Prix: <span>{{plugin.price}}</span></p>
-                        <p>Client: <span>{{plugin.customer}}</span></p>
-                        <p>
-                            <a href=""><i class="fas fa-cog"></i></a>
-                            |
+            <table class="table mb-5" data-toggle="true">
+                <thead class="bg-grey-shebam color-white-shebam font-weight-bold">
+                    <tr>
+                        <th scope="col">Nom:</th>
+                        <th scope="col">Lien</th>
+                        <th scope="col">Date d'achat</th>
+                        <th scope="col">Date d'expiration:</th>
+                        <th scope="col">Durée</th>
+                        <th scope="col">Prix</th>
+                        <th scope="col">Client</th>
+                        <th scope="col">CMS</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="bg-white-shebam">
+                    {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+                        {% for plugin in plugin %}
+                        <td>{{plugin.name}}</td>
+                        <td><a href="{{plugin.link}}" target="new">Clique moi</a></td>
+                        <td>{{plugin.purchaseddate|date('d-m-Y') }}</td>
+                        <td>{{plugin.expirationdate|date('d-m-Y') }}</td>
+                        <td>{{plugin.duration}}</td>
+                        <td>{{plugin.price}}</td>
+                        <td>{{plugin.customer}}</td>
+                        <td>{{plugin.cms}}</td>
+                        <td>
+                            <a href="{{ path('modify_plugin_back', {"id": plugin.id, "name": plugin.name}) }}"><i class="fas fa-cog"></i></a>
+                             |
                             <a href="{{ path('delete_plugin_front', {"id": plugin.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer une tâche P2')"><i class="fas fa-trash"></i></a>
-                        </p>
-                    </div>
-                </div>
-                {% endfor %}
+                        </td>
+                        {% endfor %}
+                    {% endif %}
+                    </tr>
+                </tbody>
+            </table> 
+
         </div>
         <div class="col">
             <h3 class="text-center color-blue-dark-shebam mb-3">Liste des utilisateurs</h3>
@@ -73,7 +86,7 @@
                         <td>
                             <a href=""><i class="fas fa-cog"></i></a>
                                 |
-                            <a href="{{ path('delete_user_front', {"id": user.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer un utilisateur')"><i class="fas fa-trash"></i></a>
+                            <a href="{{ path('delete_user_back', {"id": user.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer un utilisateur')"><i class="fas fa-trash"></i></a>
                         </td>
                         {% endfor %}
                     {% endif %}
