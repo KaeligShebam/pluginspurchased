@@ -31,26 +31,42 @@
                 {% if app.user %}
                     {% if is_granted('ROLE_ADMIN') %}
                         {% if app.request.attributes.get('_route') == 'home' %}
-                        <li class="nav-item active"> 
-                             {% if is_granted('ROLE_ADMIN') %}<a class="navbar-text color-blue-dark-shebam" title="Aller sur l'administration" href="{{ path('admin') }}">Administration</a> {% endif %}
-                        </li>
-                        <li class="nav-item active"> 
-                             {% if is_granted('ROLE_ADMIN') %}<a class="navbar-text color-blue-dark-shebam" title="Aller sur l'administration" data-toggle="modal" data-target="#exampleModalCenter" href="">Ajouter un plugin</a> {% endif %}
-                        </li>
-                        {% else %}
-                        <li class="nav-item active"> 
-                             {% if is_granted('ROLE_ADMIN') %}<a class="navbar-text color-blue-dark-shebam" href="{{ path('home') }}">Accueil</a> {% endif %}
-                        </li>
+                            <li class="nav-item active"> 
+                                {% if is_granted('ROLE_ADMIN') %}
+                                {% endif %}
+                            </li>
+                        {% elseif app.request.attributes.get('_route') == 'plugins'%}
+                            <li class="nav-item active"> 
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('home') }}">Accueil</a>
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('monthscontracts') }}">Contrats Mensuels</a>
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('yearscontracts') }}">Contrats Annuels</a>
+                            </li>
+                        {% elseif app.request.attributes.get('_route') == 'yearscontracts' %}
+                            <li class="nav-item active"> 
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('home') }}">Accueil</a>
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('plugins') }}">Plugins</a>
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('monthscontracts') }}">Contrats Mensuels</a>
+                            </li>
+                        {% elseif app.request.attributes.get('_route') == 'monthscontracts' %}
+                            <li class="nav-item active"> 
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('home') }}">Accueil</a>
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('plugins') }}">Plugins</a>
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('yearscontracts') }}">Contrats Annuels</a>
+                            </li>
                         {% endif %}
-
                     {% endif %}
                 {% endif %}
                 </ul> 
                 <ul class="navbar-nav">
                     {% if app.user %}
-                       <a class="navbar-text color-blue-dark-shebam" title="Aller sur mon compte" href="{{ path('account') }}">Compte</a><a class="navbar-text color-blue-dark-shebam" title="Se déconnecter" href="{{ path('app_logout') }}">Déconnexion</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a class="navbar-text color-blue-dark-shebam" title="Aller sur l'administration" href="{{ path('admin') }}">Administration</a>
+                        {% endif %}
+                       <a class="navbar-text color-blue-dark-shebam" title="Aller sur mon compte" href="{{ path('account') }}">Compte</a>
+                       <a class="navbar-text color-blue-dark-shebam" title="Se déconnecter" href="{{ path('app_logout') }}">Déconnexion</a>
                     {% else %}
-                    <a class="navbar-text color-blue-dark-shebam" title="Se connecter" href="{{ path('app_login') }}">Connexion</a> <a class="navbar-text color-blue-dark-shebam" title="S'inscrire" href="{{ path('register') }}">Inscription</a>
+                        <a class="navbar-text color-blue-dark-shebam" title="Se connecter" href="{{ path('app_login') }}">Connexion</a>
+                        <a class="navbar-text color-blue-dark-shebam" title="S'inscrire" href="{{ path('register') }}">Inscription</a>
                     {% endif %}
                 </ul>
             </div>

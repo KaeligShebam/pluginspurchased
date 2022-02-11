@@ -1,0 +1,87 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Accueil - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}</title>
+    </style>
+</head>
+{% block body %}
+<div class="mb-5">
+    <h1 class="text-center color-blue-dark-shebam mb-3">Liste des Plugins</h1>
+    <hr>
+    <div class="mb-5"></div>
+    <div class="d-flex justify-content-center">
+        <div class="col padding-mobile">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+            {% for plugin in plugin %}
+            <div class="feature-card">
+                <div class="feature-card-title">
+                    <h3>{{plugin.name}}</h3>
+                </div>
+                <div class="feature-card-details">
+                    <h2 class="text-center ">{{plugin.name}}</h2>
+                    <p>Lien: <a href="{{plugin.link}}"><span>{{plugin.link}}</a></span></p>
+                    <p>Date d'achat: <span>{{plugin.purchaseddate|date('d-m-Y') }}</span></p>
+                    <p>Date d'expiration: <span>{{plugin.expirationdate|date('d-m-Y') }}</span></p>
+                    <p>Durée: <span>{{plugin.duration}}</span></p>
+                    <p>Prix: <span>{{plugin.price}}</span></p>
+                    <p>Client: <span>{{plugin.customer}}</span></p>
+                    <p>CMS: <span>{{plugin.cms}}</span></p>
+                    <p>
+                        <a href="{{ path('modify_plugin_front', {"id": plugin.id}) }}"><i class="fas fa-cog"></i></a>
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-center mb-4 mt-4">Connecte-toi pour pouvoir gérer la liste des rappels !</p>
+        {% endif %}
+    </div>
+
+
+    <!-- POPUP -->
+    <!-- Plugin -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Ajout d'un plugin</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(form_plugin_add_front) }}
+                    <div class="form-group">
+                        {{ form_row(form_plugin_add_front.name) }}
+                        {{ form_row(form_plugin_add_front.link) }}
+                        {{ form_row(form_plugin_add_front.purchaseddate) }}
+                        {{ form_row(form_plugin_add_front.expirationdate) }}
+                        {{ form_row(form_plugin_add_front.duration) }}
+                        {{ form_row(form_plugin_add_front.price) }}
+                        {{ form_row(form_plugin_add_front.customer) }}
+                        {{ form_row(form_plugin_add_front.cms) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form_plugin_add_front.submit) }}
+                    </div>
+                    {{ form_end(form_plugin_add_front) }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+</html>
+{% endblock %}

@@ -10,77 +10,52 @@
     </style>
 </head>
 	{% block body %}
+	<div class="container">
 		<div class="mb-5">
-			<h1 class="text-center color-blue-dark-shebam mb-3">Liste des plugins</h1>
-			<hr>
-			<div class="mb-5"></div>	
-			<div class="d-flex justify-content-center">
-				<div class="col padding-mobile">
-					{% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
-						{% for plugin in plugin %}
-						<div class="feature-card">
-							<div class="feature-card-title">
-								<h3>{{plugin.name}}</h3>
-							</div>
-							<div class="feature-card-details">
-								<h2 class="text-center ">{{plugin.name}}</h2>
-								<p>Lien: <a href="{{plugin.link}}"><span>{{plugin.link}}</a></span></p>
-								<p>Date d'achat: <span>{{plugin.purchaseddate|date('d-m-Y') }}</span></p>
-								<p>Date d'expiration: <span>{{plugin.expirationdate|date('d-m-Y') }}</span></p>
-								<p>Durée: <span>{{plugin.duration}}</span></p>
-								<p>Prix: <span>{{plugin.price}}</span></p>
-								<p>Client: <span>{{plugin.customer}}</span></p>
-								<p>CMS: <span>{{plugin.cms}}</span></p>
-								<p>
-	                            	<a href="{{ path('modify_plugin_back', {"id": plugin.id, "name": plugin.name}) }}"><i class="fas fa-cog"></i></a>
-                             		|
-                            		<a href="{{ path('delete_user_back', {"id": plugin.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer un plugin')"><i class="fas fa-trash"></i></a>
-								</p>
-							</div>
-						</div>
-						{% endfor %}
-				</div>
-				{% else %}
-				<p class="text-center mb-4 mt-4">Connecte-toi pour pouvoir gérer la liste des plugins !</p>
-				{% endif %}
+		<h1 class="text-center color-blue-dark-shebam mb-3">Liste des Rappels</h1>
+		<h4 class="text-center color-blue-dark-shebam mb-3">Choisir la rubrique qui t'intéresse</h4>
+		<hr style="margin-bottom: 150px;">
+		<div class="mb-5">
+
+		<div class="row">
+			<div class="col">
+				<div class="card text-center">
+					<div class="card-header">Plugins</div>
+					<div class="card-body">
+						<p class="card-text">Découvrez la liste des plugins achetés</p>
+						<p class="card-text">Nombre de plugins: </p>
+					</div>
+					<div class="card-footer text-muted">
+						<a href="{{ path('plugins') }}" class="btn bg-blue-dark-shebam color-white-shebam">En savoir plus</a>
+					</div>
+				</div>			
 			</div>
-
-
-			<!-- POPUP -->
-			<!-- Plugin -->
-
-			<!-- Modal -->
-			<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-			<div class="modal-dialog modal-dialog-centered" role="document">
-				<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLongTitle">Ajout d'un plugin</h5>
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-					</button>
-				</div>
-				<div class="modal-body">
-						{{ form_start(form_plugin_add_front) }}
-							<div class="form-group">
-								{{ form_row(form_plugin_add_front.name) }}
-								{{ form_row(form_plugin_add_front.link) }}
-								{{ form_row(form_plugin_add_front.purchaseddate) }}
-								{{ form_row(form_plugin_add_front.expirationdate) }}
-								{{ form_row(form_plugin_add_front.duration) }}
-								{{ form_row(form_plugin_add_front.price) }}
-								{{ form_row(form_plugin_add_front.customer) }}
-								{{ form_row(form_plugin_add_front.cms) }}
-							</div>
-							<div class="form-group">
-								{{ form_row(form_plugin_add_front.submit) }}
-							</div>
-						{{ form_end(form_plugin_add_front) }}
-				</div>
-				</div>
+			<div class="col">
+				<div class="card text-center">
+					<div class="card-header">Contrats Mensuels</div>
+					<div class="card-body">
+						<p class="card-text">Découvrez la liste des contrats mensuels</p>
+						<p class="card-text">Nombre de contrat mensuel: </p>
+					</div>
+					<div class="card-footer text-muted">
+						<a href="{{ path('monthscontracts') }}" class="btn bg-blue-dark-shebam color-white-shebam">En savoir plus</a>
+					</div>
+				</div>			
 			</div>
+			<div class="col">
+				<div class="card text-center">
+					<div class="card-header">Contrats Tickets</div>
+					<div class="card-body">
+						<p class="card-text">Découvrez la liste des plugins achetés</p>
+						<p class="card-text">Nombre de plugins: </p>
+					</div>
+					<div class="card-footer text-muted">
+						<a href="{{ path('yearscontracts') }}" class="btn bg-blue-dark-shebam color-white-shebam">En savoir plus</a>
+					</div>
+				</div>		
 			</div>
-
 		</div>
+	</div>
 	{% endblock %}
 </html>
 {%  endblock %}

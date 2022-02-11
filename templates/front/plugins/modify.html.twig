@@ -1,0 +1,29 @@
+{% extends '/base.html.twig' %}
+
+{%  block title %}Administration - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h2 class="text-center">Modification du plugin: {{plugins.name}}</h2>
+    <div class="mb-5"></div>
+    <hr>
+    <div class="mb-5"></div>
+    {{ form_start(form_plugin_modify_back) }}
+    <div class="row">
+        <div class="col">                    
+            {{ form_row(form_plugin_modify_back.name) }}
+            {{ form_row(form_plugin_modify_back.link) }}
+            {{ form_row(form_plugin_modify_back.purchaseddate) }}
+            {{ form_row(form_plugin_modify_back.expirationdate) }}</div>
+        <div class="col">
+            {{ form_row(form_plugin_modify_back.duration) }}
+            {{ form_row(form_plugin_modify_back.price) }}
+            {{ form_row(form_plugin_modify_back.customer) }}
+            {{ form_row(form_plugin_modify_back.cms) }}
+        </div>
+    </div>
+    {{ form_row(form_plugin_modify_back.submit) }}
+    {{ form_end(form_plugin_modify_back) }}
+</div>
+{% endblock %}

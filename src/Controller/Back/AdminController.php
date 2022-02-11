@@ -28,32 +28,8 @@ class AdminController extends AbstractController
     public function admin(UserRepository $user, PluginsRepository $pluginsListAdmin): Response
     {
         return $this->render('back/index.html.twig', [
-            // 'notification' => $notification,
             'user' => $user->findAll(),
             'plugin' => $pluginsListAdmin->findBy([], ['name' => 'ASC']),
-        ]);
-    }
-
-    /**
-     * @Route("/admin/plugin/modifier/id={id}/{name}", name="modify_plugin_back")
-     */
-    public function modifyTaskP1Cw(Request $request, Plugins $pluginsModify): Response
-    {
-        $form = $this->createForm(PluginsPurchasedModifyType::class, $pluginsModify);
-        $notification = null;
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $pluginsModify = $form->getData();
-            $this->entityManager->persist($pluginsModify);
-            $this->entityManager->flush();
-            $notification = 'Le plugin a été mise à jour !';
-            $form = $this->createForm(PluginsPurchasedModifyType::class, $pluginsModify);
-        }
-        return $this->render('back/plugins/modify.html.twig', [
-            'form_plugin_modify_back' => $form->createView(),
-            'notification' => $notification,
-            'plugins' => $pluginsModify
         ]);
     }
 
