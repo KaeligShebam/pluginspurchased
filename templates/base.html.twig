@@ -53,6 +53,18 @@
                                 <a class="navbar-text color-blue-dark-shebam" href="{{ path('plugins') }}">Plugins</a>
                                 <a class="navbar-text color-blue-dark-shebam" href="{{ path('yearscontracts') }}">Contrats Annuels</a>
                             </li>
+                        {% elseif app.request.attributes.get('_route') == 'modify_monthcontract_front' %}
+                            <li class="nav-item active"> 
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('monthscontracts') }}">Retourner aux contrats mensuels</a>
+                            </li>
+                        {% elseif app.request.attributes.get('_route') == 'modify_plugin_front' %}
+                            <li class="nav-item active"> 
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('plugins') }}">Retourner aux plugins</a>
+                            </li>
+                        {% elseif app.request.attributes.get('_route') == 'modify_yearcontract_front' %}
+                            <li class="nav-item active"> 
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('yearscontracts') }}">Retourner aux contrats annuels</a>
+                            </li>
                         {% endif %}
                     {% endif %}
                 {% endif %}

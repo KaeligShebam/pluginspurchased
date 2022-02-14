@@ -1,6 +1,6 @@
 {% extends '/base.html.twig' %}
 
-{%  block title %}Administration - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+{%  block title %}AdminiModification - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
 
 {% block content %}
 
@@ -9,21 +9,25 @@
     <div class="mb-5"></div>
     <hr>
     <div class="mb-5"></div>
-    {{ form_start(form_plugin_modify_back) }}
+    	{% if notification %}
+			<div class="alert alert-success">{{ notification }}<br>
+			</div>
+		{% endif %}
+    {{ form_start(form_plugin_modify_front) }}
     <div class="row">
         <div class="col">                    
-            {{ form_row(form_plugin_modify_back.name) }}
-            {{ form_row(form_plugin_modify_back.link) }}
-            {{ form_row(form_plugin_modify_back.purchaseddate) }}
-            {{ form_row(form_plugin_modify_back.expirationdate) }}</div>
+            {{ form_row(form_plugin_modify_front.name) }}
+            {{ form_row(form_plugin_modify_front.link) }}
+            {{ form_row(form_plugin_modify_front.purchaseddate) }}
+            {{ form_row(form_plugin_modify_front.expirationdate) }}</div>
         <div class="col">
-            {{ form_row(form_plugin_modify_back.duration) }}
-            {{ form_row(form_plugin_modify_back.price) }}
-            {{ form_row(form_plugin_modify_back.customer) }}
-            {{ form_row(form_plugin_modify_back.cms) }}
+            {{ form_row(form_plugin_modify_front.duration) }}
+            {{ form_row(form_plugin_modify_front.price) }}
+            {{ form_row(form_plugin_modify_front.customer) }}
+            {{ form_row(form_plugin_modify_front.cms) }}
         </div>
     </div>
-    {{ form_row(form_plugin_modify_back.submit) }}
-    {{ form_end(form_plugin_modify_back) }}
+    {{ form_row(form_plugin_modify_front.submit) }}
+    {{ form_end(form_plugin_modify_front) }}
 </div>
 {% endblock %}

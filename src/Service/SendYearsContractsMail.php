@@ -2,36 +2,34 @@
 
 namespace App\Service;
 
-use App\Entity\Plugins;
 use Symfony\Component\Mime\Address;
-use App\Repository\PluginsRepository;
+use App\Repository\YearsContractsRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 
-class SendMail
+class SendYearsContractsMail
 {
     private $mailer;
     /**
-     * @var PluginsRepository
+     * @var YearsRepository
      */
 
-    public function __construct(MailerInterface $mailer, PluginsRepository $pluginRepository )
+    public function __construct(MailerInterface $mailer, YearsContractsRepository $yearsRepository)
     {
         $this->mailer = $mailer;
-        $this->pluginRepository = $pluginRepository;
+        $this->yearsRepository = $yearsRepository;
     }
 
-    public function sendReminder(array $pluginsList)
-    { 
+    public function sendReminderYearsContracts(array $yearsList)
+    {
         $message = (new  TemplatedEmail())
             ->to('support@shebam.fr')
             ->from(new Address('support@shebam.fr', 'Support WEB SHEBAM'))
-            ->subject('Information - Rappel ')
-            ->htmlTemplate('front/home/mail.html.twig')
+            ->subject('Information - Rappels ')
+            ->htmlTemplate('front/mails/mail-years-contracts.html.twig')
             ->context([
-                'plugins' => $pluginsList
+                'years' => $yearsList
             ]);
         $this->mailer->send($message);
     }
-
 }

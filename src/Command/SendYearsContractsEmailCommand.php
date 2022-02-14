@@ -3,9 +3,9 @@
 namespace App\Command;
 
 use App\Entity\Plugins;
-use App\Service\SendMail;
+use App\Service\SendYearsContractsMail;
 use Symfony\Component\Mime\Address;
-use App\Repository\PluginsRepository;
+use App\Repository\YearsContractsRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -13,14 +13,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class SendEmailCommand extends Command
+class SendYearsContractsEmailCommand extends Command
 {
 
-    protected static $defaultName = 'date-achat';
+    protected static $defaultName = 'reminder-yearscontracts';
     /**
-     * @var PluginsRepository
+     * @var YearsContractsRepository
      */
-    private $pluginRepository;
+    private $yearsContractsRepository;
     /**
      * @var Mailer
      */
@@ -32,10 +32,10 @@ class SendEmailCommand extends Command
             ->setHelp('Cette commande envoie un mail de rappel à la date d\'expiration');
     }
 
-    public function __construct(PluginsRepository $pluginRepository, SendMail $mailer)
+    public function __construct(YearsContractsRepository $yearsContractsRepository, SendYearsContractsMail $mailer)
     {
         parent::__construct();
-        $this->pluginRepository = $pluginRepository;
+        $this->yearsContractsRepository = $yearsContractsRepository;
         $this->mailer = $mailer;
     }
  
@@ -43,14 +43,14 @@ class SendEmailCommand extends Command
     {
 
         $io = new SymfonyStyle($input, $output);
-        $pluginExpiration = $this->pluginRepository->findExpirationDate();
-        $pluginListCount = count($pluginExpiration);
+        $yearsContractsExpiration = $this->yearsContractsRepository->findYearsContractsExpirationDate();
+        $yearsContractsListCount = count($yearsContractsExpiration);
 
-        if($pluginListCount === 0){
-            $io->note("Il n'y a aucun plugin qui arrivent à expiration");
+        if($yearsContractsListCount === 0){
+            $io->note("Il n'y a aucun contrat mensuel qui arrivent à expiration");
         } else {
-            $io->success("$pluginListCount plugin(s) et un mail envoyé !");
-            $this->mailer->sendReminder($pluginExpiration);
+            $io->success("$yearsContractsListCount contrat(s) annuel(s) et un mail envoyé !");
+            $this->mailer->sendReminderYearsContracts($yearsContractsExpiration);
         }
         
         return Command::SUCCESS;

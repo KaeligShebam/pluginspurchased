@@ -5,11 +5,10 @@ namespace App\Controller\Front;
 use App\Entity\Plugins;
 use App\Repository\PluginsRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Form\Front\PluginsPurchasedAddType;
-use App\Form\Back\PluginsPurchasedModifyType;
+use App\Form\Front\Plugins\PluginsAddType;
+use App\Form\Front\Plugins\PluginsModifyType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,11 +26,11 @@ class PluginsController extends AbstractController
     public function index(Request $request, PluginsRepository $plugins): Response
     {
 
-        $pluginsPurchasedAdd = new Plugins();
-        $form = $this->createForm(PluginsPurchasedAddType::class, $pluginsPurchasedAdd);
+        $pluginsAdd = new Plugins();
+        $form = $this->createForm(PluginsAddType::class, $pluginsAdd);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->entityManager->persist($pluginsPurchasedAdd);
+            $this->entityManager->persist($pluginsAdd);
             $this->entityManager->flush();
             return $this->redirectToRoute("plugins");
         }
@@ -49,7 +48,7 @@ class PluginsController extends AbstractController
      */
     public function modifyTaskP1Cw(Request $request, Plugins $pluginsModify): Response
     {
-        $form = $this->createForm(PluginsPurchasedModifyType::class, $pluginsModify);
+        $form = $this->createForm(PluginsModifyType::class, $pluginsModify);
         $notification = null;
         $form->handleRequest($request);
 
@@ -58,10 +57,10 @@ class PluginsController extends AbstractController
             $this->entityManager->persist($pluginsModify);
             $this->entityManager->flush();
             $notification = 'Le plugin a été mise à jour !';
-            $form = $this->createForm(PluginsPurchasedModifyType::class, $pluginsModify);
+            $form = $this->createForm(PluginsModifyType::class, $pluginsModify);
         }
         return $this->render('front/plugins/modify.html.twig', [
-            'form_plugin_modify_back' => $form->createView(),
+            'form_plugin_modify_front' => $form->createView(),
             'notification' => $notification,
             'plugins' => $pluginsModify
         ]);

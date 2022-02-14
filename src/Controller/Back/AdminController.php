@@ -2,8 +2,10 @@
 
 namespace App\Controller\Back;
 
+use App\Entity\MonthsContracts;
 use App\Entity\User;
 use App\Entity\Plugins;
+use App\Entity\YearsContracts;
 use App\Repository\UserRepository;
 use App\Repository\PluginsRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,9 +29,32 @@ class AdminController extends AbstractController
      */
     public function admin(UserRepository $user, PluginsRepository $pluginsListAdmin): Response
     {
+        $em = $this->getDoctrine()->getManager();
+
+        $repoPlugins = $em->getRepository(Plugins::class);
+        $totalPlugins = $repoPlugins->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $repoMonthsContacts = $em->getRepository(MonthsContracts::class);
+        $totalMonthsContracts = $repoMonthsContacts->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $repoYearsContacts = $em->getRepository(YearsContracts::class);
+        $totalYearsContracts = $repoYearsContacts->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
         return $this->render('back/index.html.twig', [
             'user' => $user->findAll(),
             'plugin' => $pluginsListAdmin->findBy([], ['name' => 'ASC']),
+            'totalPlugins' => $totalPlugins,
+            'totalMonthsContracts' => $totalMonthsContracts,
+            'totalYearsContracts' => $totalYearsContracts,
         ]);
     }
 

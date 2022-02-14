@@ -9,45 +9,12 @@
     <div class="mb-5"></div>
     <div class="row">
         <div class="col">
-            <h3 class="text-center color-blue-dark-shebam mb-3">Liste des plugins</h3>
+            <h3 class="text-center color-blue-dark-shebam mb-3">Listes des différentes rubriques</h3>
             <hr>
             <div class="mb-5"></div>
-            <table class="table mb-5" data-toggle="true">
-                <thead class="bg-grey-shebam color-white-shebam font-weight-bold">
-                    <tr>
-                        <th scope="col">Nom:</th>
-                        <th scope="col">Lien</th>
-                        <th scope="col">Date d'achat</th>
-                        <th scope="col">Date d'expiration:</th>
-                        <th scope="col">Durée</th>
-                        <th scope="col">Prix</th>
-                        <th scope="col">Client</th>
-                        <th scope="col">CMS</th>
-                        <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr class="bg-white-shebam">
-                    {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
-                        {% for plugin in plugin %}
-                        <td>{{plugin.name}}</td>
-                        <td><a href="{{plugin.link}}" target="new">Clique moi</a></td>
-                        <td>{{plugin.purchaseddate|date('d-m-Y') }}</td>
-                        <td>{{plugin.expirationdate|date('d-m-Y') }}</td>
-                        <td>{{plugin.duration}}</td>
-                        <td>{{plugin.price}}</td>
-                        <td>{{plugin.customer}}</td>
-                        <td>{{plugin.cms}}</td>
-                        <td>
-                            <a href="{{ path('modify_plugin_back', {"id": plugin.id, "name": plugin.name}) }}"><i class="fas fa-cog"></i></a>
-                             |
-                            <a href="{{ path('delete_plugin_front', {"id": plugin.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer une tâche P2')"><i class="fas fa-trash"></i></a>
-                        </td>
-                        {% endfor %}
-                    {% endif %}
-                    </tr>
-                </tbody>
-            </table> 
+            <p class="text-center">Nombres de plugins achetés: <span>{{ totalPlugins }}</span></p>
+            <p class="text-center">Nombres de contrats mensuels: <span>{{ totalMonthsContracts }}</span></p>
+            <p class="text-center">Nombres de contrats annuels: <span>{{ totalYearsContracts }}</span></p>
 
         </div>
         <div class="col">

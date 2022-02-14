@@ -1,24 +1,23 @@
 <?php
 
-namespace App\Form\Front;
+namespace App\Form\Front\MonthsContracts;
 
-use App\Entity\Plugins;
+use App\Entity\MonthsContracts;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
-class PluginsPurchasedAddType extends AbstractType
+class MonthsContractsAddType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'Nom du plugin',
+                'label' => 'Nom du contrat',
                 'attr' => [
                     'class' => 'label-custom'
                 ]
@@ -29,15 +28,15 @@ class PluginsPurchasedAddType extends AbstractType
                     'class' => 'label-custom'
                 ]
             ])
-            ->add('purchaseddate', DateType::class, [
-                'label' => 'Date d\'achat',
+            ->add('startdate', DateType::class, [
+                'label' => 'Date de début',
                 'attr' => [
                     'class' => 'label-custom'
                 ],
                 'widget' => 'single_text'
             ])
-            ->add('expirationdate', DateType::class, [
-                'label' => 'Date d\'expiration',
+            ->add('enddate', DateType::class, [
+                'label' => 'Date de fin',
                 'attr' => [
                     'class' => 'label-custom'
                 ],
@@ -55,18 +54,6 @@ class PluginsPurchasedAddType extends AbstractType
                     'class' => 'label-custom'
                 ]
             ])
-            ->add('price', TextType::class, [
-                'label' => 'Prix',
-                'attr' => [
-                    'class' => 'label-custom'
-                ]
-            ])
-            ->add('cms', TextType::class, [
-                'label' => 'CMS',
-                'attr' => [
-                    'class' => 'label-custom'
-                ]
-            ])
             ->add('submit', SubmitType::class, [
                 'label' => 'Enregistrer',
                 'attr' => ['class' => 'btn-yellow-shebam']
@@ -77,7 +64,7 @@ class PluginsPurchasedAddType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Plugins::class,
+            'data_class' => MonthsContracts::class,
         ]);
     }
 }
