@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\MonthsContractsRepository;
+use App\Repository\TicketsShebamWebRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=MonthsContractsRepository::class)
+ * @ORM\Entity(repositoryClass=TicketsShebamWebRepository::class)
  */
-class MonthsContracts
+class TicketsShebamWeb
 {
     /**
      * @ORM\Id
@@ -16,11 +16,6 @@ class MonthsContracts
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=75)
-     */
-    private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -50,18 +45,6 @@ class MonthsContracts
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     public function getLink(): ?string
@@ -124,5 +107,4 @@ class MonthsContracts
 
         return $this;
     }
-
 }

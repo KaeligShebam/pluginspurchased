@@ -1,9 +1,9 @@
 <?php
-//src/Command/SendEmailCommand.php
 namespace App\Command;
 
 use App\Entity\Plugins;
-use App\Service\SendYearsContractsMail;
+use App\Repository\TicketsShebamWebRepository;
+use App\Service\SendTicketsShebamWebMail;
 use Symfony\Component\Mime\Address;
 use App\Repository\YearsContractsRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -13,12 +13,12 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class SendYearsContractsEmailCommand extends Command
+class SendTicketsShebamWebEmailCommand extends Command
 {
 
-    protected static $defaultName = 'reminder-yearscontracts';
+    protected static $defaultName = 'reminder-tickets-web-shebam';
     /**
-     * @var YearsContractsRepository
+     * @var TicketsShebamWebRepository
      */
     private $yearsContractsRepository;
     /**
@@ -32,10 +32,10 @@ class SendYearsContractsEmailCommand extends Command
             ->setHelp('Cette commande envoie un mail de rappel à la date d\'expiration');
     }
 
-    public function __construct(YearsContractsRepository $yearsContractsRepository, SendYearsContractsMail $mailer)
+    public function __construct(TicketsShebamWebRepository $ticketsShebamWebRepository, SendTicketsShebamWebMail $mailer)
     {
         parent::__construct();
-        $this->yearsContractsRepository = $yearsContractsRepository;
+        $this->yearsContractsRepository = $ticketsShebamWebRepository;
         $this->mailer = $mailer;
     }
  
@@ -43,14 +43,14 @@ class SendYearsContractsEmailCommand extends Command
     {
 
         $io = new SymfonyStyle($input, $output);
-        $yearsContractsExpiration = $this->yearsContractsRepository->findYearsContractsExpirationDate();
-        $yearsContractsListCount = count($yearsContractsExpiration);
+        $ticketsShebamWebExpiration = $this->yearsContractsRepository->findTicketsShebamWebExpirationDate();
+        $ticketsShebamWebListCount = count($ticketsShebamWebExpiration);
 
-        if($yearsContractsListCount === 0){
-            $io->note("Il n'y a aucun contrat mensuel qui arrivent à expiration");
+        if($ticketsShebamWebListCount === 0){
+            $io->note("Il n'y a aucun ticket WEB Shebam qui arrivent à expiration");
         } else {
-            $io->success("$yearsContractsListCount contrat(s) annuel(s) et un mail envoyé !");
-            $this->mailer->sendReminderYearsContracts($yearsContractsExpiration);
+            $io->success("$ticketsShebamWebListCount contrat(s) annuel(s) et un mail envoyé !");
+            $this->mailer->sendReminderTicketsShebamWeb($ticketsShebamWebExpiration);
         }
         
         return Command::SUCCESS;

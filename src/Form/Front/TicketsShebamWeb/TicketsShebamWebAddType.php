@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Form\Front\MonthsContracts;
+namespace App\Form\Front\TicketsShebamWeb;
 
-use App\Entity\MonthsContracts;
+use App\Entity\TicketsShebamWeb;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -11,17 +11,11 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 
-class MonthsContractsModifyType extends AbstractType
+class TicketsShebamWebAddType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class, [
-                'label' => 'Nom du contrat',
-                'attr' => [
-                    'class' => 'label-custom'
-                ]
-            ])
             ->add('link', UrlType::class, [
                 'label' => 'Lien',
                 'attr' => [
@@ -64,7 +58,7 @@ class MonthsContractsModifyType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => MonthsContracts::class,
+            'data_class' => TicketsShebamWeb::class,
         ]);
     }
 }

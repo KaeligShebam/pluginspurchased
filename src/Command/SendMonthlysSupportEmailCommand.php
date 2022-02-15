@@ -2,9 +2,9 @@
 //src/Command/SendEmailCommand.php
 namespace App\Command;
 
-use App\Service\SendMonthsContractsMail;
+use App\Service\SendMonthlysSupportMail;
 use Symfony\Component\Mime\Address;
-use App\Repository\MonthsContractsRepository;
+use App\Repository\MonthlysSupportRepository;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Console\Command\Command;
@@ -12,14 +12,14 @@ use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class SendMonthsContractsEmailCommand extends Command
+class SendMonthlysSupportEmailCommand extends Command
 {
 
-    protected static $defaultName = 'reminder-monthscontracts';
+    protected static $defaultName = 'reminder-monthlys-support';
     /**
-     * @var MonthsContractsRepository
+     * @var MonthlysSupportRepository
      */
-    private $monthsContractsRepository;
+    private $monthlysSupportRepository;
     /**
      * @var Mailer
      */
@@ -31,10 +31,10 @@ class SendMonthsContractsEmailCommand extends Command
             ->setHelp('Cette commande envoie un mail de rappel à la date d\'expiration');
     }
 
-    public function __construct(MonthsContractsRepository $monthsContractsRepository, SendMonthsContractsMail $mailer)
+    public function __construct(MonthlysSupportRepository $monthlysSupportRepository, SendMonthlysSupportMail $mailer)
     {
         parent::__construct();
-        $this->monthsContractsRepository = $monthsContractsRepository;
+        $this->monthlysSupportRepository = $monthlysSupportRepository;
         $this->mailer = $mailer;
     }
  
@@ -42,14 +42,14 @@ class SendMonthsContractsEmailCommand extends Command
     {
 
         $io = new SymfonyStyle($input, $output);
-        $monthsContractsExpiration = $this->monthsContractsRepository->findMonthsContractsExpirationDate();
-        $monthsContractsListCount = count($monthsContractsExpiration);
+        $monthlysSupportExpiration = $this->monthlysSupportRepository->findMonthlysSupportExpirationDate();
+        $monthlysSupportListCount = count($monthlysSupportExpiration);
 
-        if($monthsContractsListCount === 0){
+        if($monthlysSupportListCount === 0){
             $io->note("Il n'y a aucun contrat mensuel qui arrivent à expiration");
         } else {
-            $io->success("$monthsContractsListCount contrat(s) mensuel(s) et un mail envoyé !");
-            $this->mailer->sendReminderMonthsContracts($monthsContractsExpiration);
+            $io->success("$monthlysSupportListCount accompagnement(s) mensuel(s) et un mail envoyé !");
+            $this->mailer->sendReminderMonthlysSupport($monthlysSupportExpiration);
         }
         
         return Command::SUCCESS;

@@ -10,18 +10,18 @@
     </style>
 </head>
 		<div class="mb-5">
-			<h1 class="text-center">Expiration de contrat mensuel</h1>
+			<h1 class="text-center">Expiration de l'accompagnement mensuel</h1>
 			<hr>
 			<div class="mb-5"></div>
             <p>Bonjour la team SHEBAM !</p>
-            <p>Un / des client(s) arrive(nt) dans 3 mois à la fin de leur(s) contrat(s) mensuel(s) !</p>
+            <p>Un / des client(s) arrive(nt) dans 3 mois à la fin de leur(s) accompagnement(s) mensuel(s) !</p>
             <p>Voici la liste: </p>
-            {% for months in months %}
+            {% for monthly in monthlys %}
             <div class="test">
-                <p>Nom: {{months.customer}}</p>
-                <p>Date de début de contact: {{ months.startdate|date('d-m-y') }}</p>
-                <p>Date de fin de contact: {{ months.enddate|date('d-m-y') }}</p>
-                <p>Lien: <a href="{{months.link}}" target="new">Clique moi</a></p>
+                <p>Nom: {{monthly.customer}}</p>
+                <p>Date de début de contact: {{ monthly.startdate|date('d-m-y') }}</p>
+                <p>Date de fin de contact: {{ monthly.enddate|date('d-m-y') }}</p>
+                <p>Lien: <a href="{{monthly.link}}" target="new">Clique moi</a></p>
             </div>
             {% endfor %}
             <p>Ne pas oublier de rénouveller et/ou de demander au client son choix</p>

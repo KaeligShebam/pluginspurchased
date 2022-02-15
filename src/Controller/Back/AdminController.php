@@ -2,14 +2,13 @@
 
 namespace App\Controller\Back;
 
-use App\Entity\MonthsContracts;
+use App\Entity\MonthlysSupport;
 use App\Entity\User;
 use App\Entity\Plugins;
-use App\Entity\YearsContracts;
+use App\Entity\TicketsShebamWeb;
 use App\Repository\UserRepository;
 use App\Repository\PluginsRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Form\Back\PluginsPurchasedModifyType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -37,24 +36,24 @@ class AdminController extends AbstractController
             ->getQuery()
             ->getSingleScalarResult();
 
-        $repoMonthsContacts = $em->getRepository(MonthsContracts::class);
-        $totalMonthsContracts = $repoMonthsContacts->createQueryBuilder('a')
+        $repoMonthlysSupport = $em->getRepository(MonthlysSupport::class);
+        $totalMonthlysSupport = $repoMonthlysSupport->createQueryBuilder('a')
             ->select('count(a.id)')
             ->getQuery()
             ->getSingleScalarResult();
 
-        $repoYearsContacts = $em->getRepository(YearsContracts::class);
-        $totalYearsContracts = $repoYearsContacts->createQueryBuilder('a')
+        $repoTicketsShebamWeb = $em->getRepository(TicketsShebamWeb::class);
+        $totalTicketsShebamWeb = $repoTicketsShebamWeb->createQueryBuilder('a')
             ->select('count(a.id)')
             ->getQuery()
             ->getSingleScalarResult();
 
         return $this->render('back/index.html.twig', [
-            'user' => $user->findAll(),
+            'user' => $user->findBy([], ['lastname' => 'ASC']),
             'plugin' => $pluginsListAdmin->findBy([], ['name' => 'ASC']),
             'totalPlugins' => $totalPlugins,
-            'totalMonthsContracts' => $totalMonthsContracts,
-            'totalYearsContracts' => $totalYearsContracts,
+            'totalMonthlysSupport' => $totalMonthlysSupport,
+            'totalTicketsShebamWeb' => $totalTicketsShebamWeb,
         ]);
     }
 

@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{%  block title %}Modification - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <h2 class="text-center">Modification du contrat mensuel: {{monthlys.customer}}</h2>
+    <div class="mb-5"></div>
+    <hr>
+    <div class="mb-5"></div>
+    	{% if notification %}
+			<div class="alert alert-success">{{ notification }}<br>
+			</div>
+		{% endif %}
+    {{ form_start(form_monthlys_support_modify_front) }}
+    <div class="row">
+        <div class="col">   
+            {{ form_row(form_monthlys_support_modify_front.customer) }}
+            {{ form_row(form_monthlys_support_modify_front.startdate) }}
+            {{ form_row(form_monthlys_support_modify_front.enddate) }}
+        </div>
+        <div class="col">
+            {{ form_row(form_monthlys_support_modify_front.link) }}
+            {{ form_row(form_monthlys_support_modify_front.duration) }}
+        </div>
+    </div>
+    {{ form_row(form_monthlys_support_modify_front.submit) }}
+    {{ form_end(form_monthlys_support_modify_front) }}
+</div>
+{% endblock %}

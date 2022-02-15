@@ -14,14 +14,13 @@
 		<div class="mb-5">
 		<h1 class="text-center color-blue-dark-shebam mb-3">Liste des Rappels</h1>
 		<hr style="margin-bottom: 150px;">
-
+        {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
 		<div class="row">
 			<div class="col">
 				<div class="card text-center">
 					<div class="card-header">Plugins</div>
 					<div class="card-body">
-						<p class="card-text">Découvrez la liste des plugins achetés</p>
-						<p class="card-text">Nombre de plugins: </p>
+						<p class="card-text">Découvrez la liste</p>
 					</div>
 					<div class="card-footer text-muted">
 						<a href="{{ path('plugins') }}" class="btn btn-blue-shebam">En savoir plus</a>
@@ -30,29 +29,30 @@
 			</div>
 			<div class="col">
 				<div class="card text-center">
-					<div class="card-header">Contrats Mensuels</div>
+					<div class="card-header">Accompagnements Mensuels</div>
 					<div class="card-body">
-						<p class="card-text">Découvrez la liste des contrats mensuels</p>
-						<p class="card-text">Nombre de contrat mensuel: </p>
+						<p class="card-text">Découvrir la liste des clients</p>
 					</div>
 					<div class="card-footer text-muted">
-						<a href="{{ path('monthscontracts') }}" class="btn btn-blue-shebam">En savoir plus</a>
+						<a href="{{ path('monthlys_support') }}" class="btn btn-blue-shebam">En savoir plus</a>
 					</div>
 				</div>			
 			</div>
 			<div class="col">
 				<div class="card text-center">
-					<div class="card-header">Contrats Tickets</div>
+					<div class="card-header">Tickets WEB Shebam</div>
 					<div class="card-body">
-						<p class="card-text">Découvrez la liste des plugins achetés</p>
-						<p class="card-text">Nombre de plugins: </p>
+						<p class="card-text">Découvrir la liste des clients </p>
 					</div>
 					<div class="card-footer text-muted">
-						<a href="{{ path('yearscontracts') }}" class="btn btn-blue-shebam">En savoir plus</a>
+						<a href="{{ path('tickets_shebam_web') }}" class="btn btn-blue-shebam">En savoir plus</a>
 					</div>
 				</div>		
 			</div>
 		</div>
+		{% else %}
+        	<p class="text-center mb-4 mt-4">Connecte-toi pour pouvoir gérer la liste des rappels !</p>
+        {% endif %}
 	</div>
 	{% endblock %}
 </html>

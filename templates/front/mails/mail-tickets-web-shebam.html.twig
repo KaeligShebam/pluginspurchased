@@ -10,18 +10,18 @@
     </style>
 </head>
 		<div class="mb-5">
-			<h1 class="text-center">Expiration de contrat annuel</h1>
+			<h1 class="text-center">Expiration Tickets WEB Shebam</h1>
 			<hr>
 			<div class="mb-5"></div>
             <p>Bonjour la team SHEBAM !</p>
-            <p>Un / des client(s) arrive(nt) dans 3 mois à la fin de leur(s) contrat(s) annuel(s) !</p>
+            <p>Un / des client(s) arrive(nt) dans 3 mois à la fin de leur(s) ticket(s) WEB Shebam !</p>
             <p>Voici la liste: </p>
-            {% for years in years %}
+            {% for ticket in tickets %}
             <div class="test">
-                <p>Nom: {{years.customer}}</p>
-                <p>Date de début de contact: {{ years.startdate|date('d-m-y') }}</p>
-                <p>Date de fin de contact: {{ years.enddate|date('d-m-y') }}</p>
-                <p>Lien: <a href="{{years.link}}" target="new">Clique moi</a></p>
+                <p>Nom: {{ticket.customer}}</p>
+                <p>Date de début de contact: {{ ticket.startdate|date('d-m-y') }}</p>
+                <p>Date de fin de contact: {{ ticket.enddate|date('d-m-y') }}</p>
+                <p>Lien: <a href="{{ticket.link}}" target="new">Clique moi</a></p>
             </div>
             {% endfor %}
             <p>Ne pas oublier de rénouveller et/ou de demander au client son choix</p>

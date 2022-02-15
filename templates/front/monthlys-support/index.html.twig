@@ -1,0 +1,77 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Contrats Mensuels  - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}</title>
+    </style>
+</head>
+{% block body %}
+    <div class="mb-5">
+        <h1 class="text-center color-blue-dark-shebam mb-3">Liste des Accompagnements Mensuels</h1>
+        <hr>
+        <div class="mb-5"></div>
+            <div class="d-flex justify-content-center">
+        <div class="col padding-mobile">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+                <p data-toggle="modal" data-target="#openMonthlySupportContractsPopup" class="btn btn-blue-shebam justify-content-center">Ajouter un accompagnement<p>
+            {% for monthly in monthlys %}
+            <div class="feature-card">
+                <div class="feature-card-title">
+                    <h3>{{monthly.customer}}</h3>
+                </div>
+                <div class="feature-card-details">
+                    <h2 class="text-center ">{{monthly.customer}}</h2>
+                    <p>Lien: <a href="{{monthly.link}}"><span>{{monthly.link}}</a></span></p>
+                    <p>Date d'achat: <span>{{monthly.startdate|date('d-m-Y') }}</span></p>
+                    <p>Date d'expiration: <span>{{monthly.enddate|date('d-m-Y') }}</span></p>
+                    <p>Durée: <span>{{monthly.duration}}</span></p>
+                    <p>
+                        <a href="{{ path('modify_monthly_support_front', {"id": monthly.id}) }}"><i class="fas fa-cog"></i></a>
+                        <a href="{{ path('delete_monthly_support_front', {"id": monthly.id}) }}"><i class="fas fa-trash"></i></a>  
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+            <p class="text-center mb-4 mt-4">Connecte-toi pour pouvoir gérer la liste des rappels !</p>
+        {% endif %}
+    <!-- POPUP -->
+    <!-- Plugin -->
+    <div class="modal fade" id="openMonthlySupportContractsPopup" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Ajouter un accompagnement </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(form_monthlys_support_add_front) }}
+                    <div class="form-group">
+                        {{ form_row(form_monthlys_support_add_front.customer) }}
+                        {{ form_row(form_monthlys_support_add_front.link) }}
+                        {{ form_row(form_monthlys_support_add_front.startdate) }}
+                        {{ form_row(form_monthlys_support_add_front.enddate) }}
+                        {{ form_row(form_monthlys_support_add_front.duration) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form_monthlys_support_add_front.submit) }}
+                    </div>
+                    {{ form_end(form_monthlys_support_add_front) }}
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+</html>
+{% endblock %}

@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Contrats Annuels - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}</title>
+    </style>
+</head>
+{% block body %}
+<div class="mb-5">
+    <h1 class="text-center color-blue-dark-shebam mb-3">Liste des Tickets WEB Shebam</h1>
+    <hr>
+    <div class="mb-5"></div>
+    <div class="d-flex justify-content-center">
+        <div class="col padding-mobile">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
+                <p data-toggle="modal" data-target="#openTicketsContractsPopup" class="btn btn-blue-shebam justify-content-center">Ajouter un contrat <p>
+            {% for ticket in tickets %}
+            <div class="feature-card">
+                <div class="feature-card-title">
+                    <h3>{{ticket.customer}}</h3>
+                </div>
+                <div class="feature-card-details">
+                    <h2 class="text-center ">{{ticket.customer}}</h2>
+                    <p>Lien: <a href="{{ticket.link}}"><span>{{ticket.link}}</a></span></p>
+                    <p>Date d'achat: <span>{{ticket.startdate|date('d-m-Y') }}</span></p>
+                    <p>Date d'expiration: <span>{{ticket.enddate|date('d-m-Y') }}</span></p>
+                    <p>Durée: <span>{{ticket.duration}}</span></p>
+                    <p>
+                        <a href="{{ path('modify_tickets_shebam_web_front', {"id": ticket.id}) }}"><i class="fas fa-cog"></i></a>
+                        <a href="{{ path('delete_tickets_shebam_web_front', {"id": ticket.id}) }}"><i class="fas fa-trash"></i></a>  
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-center mb-4 mt-4">Connecte-toi pour pouvoir gérer la liste des rappels !</p>
+        {% endif %}
+    </div>
+
+
+    <!-- POPUP -->
+    <!-- Tickets SHEBAM WEB -->
+    <div class="modal fade" id="openTicketsContractsPopup" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Ajouter un ticket WEB Shebam</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(form_tickets_shebam_web_add_front) }}
+                    <div class="form-group">
+                        {{ form_row(form_tickets_shebam_web_add_front.customer) }}
+                        {{ form_row(form_tickets_shebam_web_add_front.link) }}
+                        {{ form_row(form_tickets_shebam_web_add_front.startdate) }}
+                        {{ form_row(form_tickets_shebam_web_add_front.enddate) }}
+                        {{ form_row(form_tickets_shebam_web_add_front.duration) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form_tickets_shebam_web_add_front.submit) }}
+                    </div>
+                    {{ form_end(form_tickets_shebam_web_add_front) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+</html>
+{% endblock %}

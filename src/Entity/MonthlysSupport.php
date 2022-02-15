@@ -2,13 +2,13 @@
 
 namespace App\Entity;
 
-use App\Repository\YearsContractsRepository;
+use App\Repository\MonthlysSupportRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=YearsContractsRepository::class)
+ * @ORM\Entity(repositoryClass=MonthlysSupportRepository::class)
  */
-class YearsContracts
+class MonthlysSupport
 {
     /**
      * @ORM\Id
@@ -16,11 +16,6 @@ class YearsContracts
      * @ORM\Column(type="integer")
      */
     private $id;
-
-    /**
-     * @ORM\Column(type="string", length=75)
-     */
-    private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -50,18 +45,6 @@ class YearsContracts
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
     }
 
     public function getLink(): ?string
@@ -124,4 +107,5 @@ class YearsContracts
 
         return $this;
     }
+
 }

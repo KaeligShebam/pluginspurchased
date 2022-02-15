@@ -38,32 +38,32 @@
                         {% elseif app.request.attributes.get('_route') == 'plugins'%}
                             <li class="nav-item active"> 
                                 <a class="navbar-text color-blue-dark-shebam" href="{{ path('home') }}">Accueil</a>
-                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('monthscontracts') }}">Contrats Mensuels</a>
-                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('yearscontracts') }}">Contrats Annuels</a>
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('monthlys_support') }}">Accompagnements Mensuels</a>
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('tickets_shebam_web') }}">Tickets WEB Shebam</a>
                             </li>
-                        {% elseif app.request.attributes.get('_route') == 'yearscontracts' %}
+                        {% elseif app.request.attributes.get('_route') == 'tickets_shebam_web' %}
                             <li class="nav-item active"> 
                                 <a class="navbar-text color-blue-dark-shebam" href="{{ path('home') }}">Accueil</a>
                                 <a class="navbar-text color-blue-dark-shebam" href="{{ path('plugins') }}">Plugins</a>
-                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('monthscontracts') }}">Contrats Mensuels</a>
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('monthlys_support') }}">Accompagnements Mensuels</a>
                             </li>
-                        {% elseif app.request.attributes.get('_route') == 'monthscontracts' %}
+                        {% elseif app.request.attributes.get('_route') == 'monthlys_support' %}
                             <li class="nav-item active"> 
                                 <a class="navbar-text color-blue-dark-shebam" href="{{ path('home') }}">Accueil</a>
                                 <a class="navbar-text color-blue-dark-shebam" href="{{ path('plugins') }}">Plugins</a>
-                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('yearscontracts') }}">Contrats Annuels</a>
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('tickets_shebam_web') }}">Tickets WEB Shebam</a>
                             </li>
-                        {% elseif app.request.attributes.get('_route') == 'modify_monthcontract_front' %}
+                        {% elseif app.request.attributes.get('_route') == 'modify_monthly_support_front' %}
                             <li class="nav-item active"> 
-                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('monthscontracts') }}">Retourner aux contrats mensuels</a>
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('monthlys_support') }}">Retourner aux accompagnements mensuels</a>
                             </li>
                         {% elseif app.request.attributes.get('_route') == 'modify_plugin_front' %}
                             <li class="nav-item active"> 
                                 <a class="navbar-text color-blue-dark-shebam" href="{{ path('plugins') }}">Retourner aux plugins</a>
                             </li>
-                        {% elseif app.request.attributes.get('_route') == 'modify_yearcontract_front' %}
+                        {% elseif app.request.attributes.get('_route') == 'modify_tickets_shebam_web_front' %}
                             <li class="nav-item active"> 
-                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('yearscontracts') }}">Retourner aux contrats annuels</a>
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('tickets_shebam_web') }}">Retourner aux tickets WEB Shebam</a>
                             </li>
                         {% endif %}
                     {% endif %}
@@ -89,7 +89,7 @@
                 {% if is_granted('ROLE_ADMIN') %}
                     <div class="mobile-bottom-nav__item">
                         <div class="mobile-bottom-nav__item-content">
-                            <a href=""><i class="fas fa-tools"></i><br>Admin</a>
+                            <a href="{{ path('admin') }}"><i class="fas fa-tools"></i><br>Admin</a>
                         </div>		
                     </div>
                 {% endif %}
