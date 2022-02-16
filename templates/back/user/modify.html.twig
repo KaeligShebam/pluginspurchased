@@ -1,0 +1,36 @@
+{% extends '/base.html.twig' %}
+
+{% block title %}Modifier utilisateur - {% block title_base %}{{ parent()}}{% endblock %}{% endblock %}
+
+{% block body %}
+	{% block content %}
+		<div class="container">
+		{% block title_page %}<h3 class="text-center">Modifier l'utilisateur - {{user.firstname}} {{user.lastname}}</h3>{% endblock %}
+		<hr>
+		<div class="mb-5"></div>
+		{{ form_start(form_user_modify_admin) }}
+		<div class="was-validated form-back background-login is-valid">
+			{% if notification %}
+				<div class="alert alert-success">{{ notification }}<br>
+					<hr>
+					<a href="{{ path('user_list_admin') }}">Retourner à la liste</a>
+				</div>
+			{% endif %}
+				<div class="form-group">
+					<div class="row">
+						<div class="col">					
+							{{ form_row(form_user_modify_admin.email) }}
+							{{ form_row(form_user_modify_admin.firstname) }}
+							{{ form_row(form_user_modify_admin.lastname) }}
+						</div>
+						<div class="col">
+							{{ form_row(form_user_modify_admin.password) }}
+							{{ form_row(form_user_modify_admin.roles) }}
+						</div>
+					</div>
+					{{ form_row(form_user_modify_admin.submit) }}
+				</div>
+		</div>
+		{{ form_end(form_user_modify_admin) }}</div>
+	{% endblock %}
+{% endblock %}

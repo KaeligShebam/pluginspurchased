@@ -2,7 +2,10 @@
 
 namespace App\Controller\Front;
 
+use App\Entity\Plugins;
 use App\Form\ChangeCoordsType;
+use App\Entity\MonthlysSupport;
+use App\Entity\TicketsShebamWeb;
 use App\Repository\TaskRepository;
 use App\Repository\TacheRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -44,9 +47,30 @@ class AccountController extends AbstractController
                 $notification = 'L\'ancien mot de passe n\'est pas correct';
             }
         }
+
+        $repoPlugins = $em->getRepository(Plugins::class);
+        $totalPlugins = $repoPlugins->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $repoMonthlysSupport = $em->getRepository(MonthlysSupport::class);
+        $totalMonthlysSupport = $repoMonthlysSupport->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $repoTicketsShebamWeb = $em->getRepository(TicketsShebamWeb::class);
+        $totalTicketsShebamWeb = $repoTicketsShebamWeb->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
         return $this->render('front/account/index.html.twig', [
             'form' => $form->createView(),
-            'notification' => $notification
+            'notification' => $notification,
+            'totalPlugins' => $totalPlugins,
+            'totalMonthlysSupport' => $totalMonthlysSupport,
+            'totalTicketsShebamWeb' => $totalTicketsShebamWeb,
         ]);
 
     }

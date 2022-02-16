@@ -20,7 +20,6 @@ class RegisterType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-
             ->add('firstname',  TextType::class, [
                 'label' => false,
                 'constraints' => new Length([

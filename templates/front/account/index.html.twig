@@ -8,7 +8,14 @@
 		<h1 class="text-center color-dark-blue-shebam mb-4">Mon Compte</h1>
 		<hr class="text-center mb-5 mt-5">
 		<div class="row text-center color-white-shebam">
-
+			<div class="col">
+				<h3 class="text-center color-blue-dark-shebam mb-3">Listes des différentes rubriques</h3>
+				<hr>
+				<div class="mb-5"></div>
+				<p class="text-center color-blue-dark-shebam">Nombres de plugins achetés: <span class="color-yellow-shebam">{{ totalPlugins }}</span></p>
+				<p class="text-center color-blue-dark-shebam">Nombres d'accompagnements mensuels: <span class="color-yellow-shebam">{{ totalMonthlysSupport }}</span></p>
+				<p class="text-center color-blue-dark-shebam">Nombres des Tickets WEB SHEBAM: <span class="color-yellow-shebam">{{ totalTicketsShebamWeb }}</span></p>
+			</div>
 			<!-- Colonne de gauche -->
 			<div class="col text-lcenter">
 				<h3 class="color-blue-dark-shebam"> Mes coordonnées</h3>
@@ -24,7 +31,9 @@
 							{% elseif role == "ROLE_ADMIN" %}
 								Administrateur
 							{% endif %}
-                        {% endfor %}</span></p>
+                        {% endfor %}
+					</span>
+				</p>
 			</div>
 
 			<!-- Colonne de droite -->

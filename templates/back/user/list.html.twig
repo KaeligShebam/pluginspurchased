@@ -1,0 +1,59 @@
+{% extends 'back/index.html.twig' %}
+
+{% block title %}Liste de l'équipe - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+{% block body %}
+	<div class="d-flex flex-row">
+		{% block title_back_page %}Liste de l'équipe{% endblock %}
+	</div>
+
+
+	{% block back_content %}
+		<div class="container">
+			<div class="add-icon-custom d-flex flex-row-reverse">
+				<a href="{{ path('user_add_admin') }}" title="Ajouter une personne dans léquipe" type="button" class="btn btn-outline-light mr-3 mb-2">
+					<i class="fas fa-plus-circle"></i>
+				</a>
+			</div>
+
+			<table class="table table-light" data-pagination="true" data-toggle="table" data-search="true">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">Nom</th>
+						<th scope="col">Prénom</th>
+						<th scope="col">Adresse Mail</th>
+						<th scope="col">Rôle</th>
+						<th scope="col">Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for user in user %}
+						<tr>
+							<td>{{user.lastname}}</td>
+							<td>{{user.firstname}}</td>
+							<td>{{user.email}}</td>
+							<td>                        
+								{# On boucle sur les rôles #}
+								{% for role in user.roles %}
+									{% if role == "ROLE_USER" %}
+										Utilisateur
+									{% elseif role == "ROLE_PRO" %}
+										Entreprise
+									{% elseif role == "ROLE_ADMIN" %}
+										Administrateur
+									{% endif %}
+								{% endfor %}
+							</td>
+							<td>
+								<a href="{{ path('user_modify_admin', {"id": user.id}) }}"><i class="fas fa-cog"></i>
+								|
+								<a href="{{ path('user_admin_delete', {"id": user.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer un utilisateur')"><i class="fas fa-trash"></i></a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+	{% endblock %}
+{% endblock %}
+

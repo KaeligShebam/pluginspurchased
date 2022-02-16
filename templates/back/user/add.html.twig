@@ -1,0 +1,25 @@
+{% extends 'back/index.html.twig' %}
+
+{% block title %}Ajouter un utilisateur - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+
+{% block body %}
+	<div>
+		{% block title_back_page %}Ajouter un utilisateur{% endblock %}
+	</div>
+		{% block back_content %}
+			<div class="was-validated form-back background-login is-valid">
+					{{ form_start(form_admin_user_add) }}
+				<div class="form-group">
+					{{ form_row(form_admin_user_add.firstname) }}
+					{{ form_row(form_admin_user_add.lastname) }}
+					{{ form_row(form_admin_user_add.email) }}
+					{{ form_row(form_admin_user_add.password) }}
+					{{ form_row(form_admin_user_add.roles) }}
+					{{ form_row(form_admin_user_add.submit) }}
+				</div>
+					{{ form_end(form_admin_user_add) }}
+			</div>
+	{% endblock %}
+{% endblock %}
+
+

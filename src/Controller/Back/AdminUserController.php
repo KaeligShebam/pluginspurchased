@@ -3,10 +3,10 @@
 namespace App\Controller\Back;
 
 use App\Entity\User;
+use App\Form\Back\AdminUserModifyType;
 use App\Repository\UserRepository;
 use App\Form\Back\User\AdminUserAddType;
 use Doctrine\ORM\EntityManagerInterface;
-use App\Form\Back\User\AdminUserModifyType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -72,23 +72,25 @@ class AdminUserController extends AbstractController
      */
     public function modifyUser(Request $request, User $user, UserPasswordEncoderInterface $encoder): Response
     {
-        $form = $this->createForm(AdminUserModifyType:: class, $user);
+        $form = $this->createForm(AdminUserModifyType::class, $user);
         $notification = null;
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()) {
-                $user = $form->getData();
-                $this->entityManager->persist($user);
-                $this->entityManager->flush();
-                $notification = 'Informations mises à jour !';
-                $user = new User();
-                $user = $form->getData();
-                $form = $this->createForm(AdminUserModifyType:: class, $user);
-            
-    }
-        return $this->render('back/user/modify.html.twig',[
+        if ($form->isSubmitted() && $form->isValid()) {
+            $user = $form->getData();
+            $password = $encoder->encodePassword($user, $user->getPassword());
+            $user->setPassword($password);
+            $this->entityManager->persist($user);
+            $this->entityManager->flush();
+            $notification = 'Informations mises à jour !';
+            $user = new User();
+            $user = $form->getData();
+            $form = $this->createForm(AdminUserModifyType::class, $user);
+        }
+        return $this->render('back/user/modify.html.twig', [
             'form_user_modify_admin' => $form->createView(),
-            'notification' => $notification
-        ]);   
+            'notification' => $notification,
+            'user' => $user,
+        ]);
     }
 }

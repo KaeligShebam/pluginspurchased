@@ -1,6 +1,6 @@
 {% extends '/base.html.twig' %}
 
-{%  block title %}Administration - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
+{% block title %}Administration - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}
 
 {% block content %}
 
@@ -32,32 +32,33 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr class="bg-white-shebam">
                     {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_ADMIN')%}
                         {% for user in user %}
-                        <td>{{user.firstname}}</td>
-                        <td>{{user.lastname}}</td>
-                        <td>{{user.email}}</td>
-                        <td>                        
-                            {# On boucle sur les rôles #}
-                            {% for role in user.roles %}
-                                {% if role == "ROLE_USER" %}
-                                    Utilisateur
-                                {% elseif role == "ROLE_PRO" %}
-                                    Entreprise
-                                {% elseif role == "ROLE_ADMIN" %}
-                                    Administrateur
-                                {% endif %}
-                            {% endfor %}
-                        </td>
-                        <td>
-                            <a href=""><i class="fas fa-cog"></i></a>
-                                |
-                            <a href="{{ path('delete_user_back', {"id": user.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer un utilisateur')"><i class="fas fa-trash"></i></a>
-                        </td>
+                            <tr class="bg-white-shebam">
+
+                                <td>{{user.firstname}}</td>
+                                <td>{{user.lastname}}</td>
+                                <td>{{user.email}}</td>
+                                <td>                        
+                                    {# On boucle sur les rôles #}
+                                    {% for role in user.roles %}
+                                        {% if role == "ROLE_USER" %}
+                                            Utilisateur
+                                        {% elseif role == "ROLE_PRO" %}
+                                            Entreprise
+                                        {% elseif role == "ROLE_ADMIN" %}
+                                            Administrateur
+                                        {% endif %}
+                                    {% endfor %}
+                                </td>
+                                <td>
+                                    <a href="{{ path('user_modify_admin', {"id": user.id}) }}"><i class="fas fa-cog"></i></a>
+                                        |
+                                    <a href="{{ path('delete_user_back', {"id": user.id}) }}" onclick="return confirm('Attention vous vous apprettez à supprimer un utilisateur')"><i class="fas fa-trash"></i></a>
+                                </td>
+                            </tr>
                         {% endfor %}
                     {% endif %}
-                    </tr>
                 </tbody>
             </table>       
         </div>
