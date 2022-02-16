@@ -29,10 +29,10 @@
             <div class="collapse navbar-collapse" id="navbarCollapse">
                 <ul class="navbar-nav mr-auto">
                 {% if app.user %}
-                    {% if is_granted('ROLE_ADMIN') %}
+                    {% if is_granted('ROLE_USER') %}
                         {% if app.request.attributes.get('_route') == 'home' %}
                             <li class="nav-item active"> 
-                                {% if is_granted('ROLE_ADMIN') %}
+                                {% if is_granted('ROLE_USER') %}
                                 {% endif %}
                             </li>
                         {% elseif app.request.attributes.get('_route') == 'plugins'%}

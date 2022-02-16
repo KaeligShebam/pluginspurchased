@@ -12,50 +12,54 @@
 				<h3 class="text-center color-blue-dark-shebam mb-3">Listes des rubriques</h3>
 				<hr>
 				<div class="mb-5"></div>
-				<p class="text-center color-blue-dark-shebam">Nombres de plugins achetés: <span class="color-yellow-shebam">{{ totalPlugins }}</span></p>
-				<p class="text-center color-blue-dark-shebam">Nombres d'accompagnements mensuels: <span class="color-yellow-shebam">{{ totalMonthlysSupport }}</span></p>
-				<p class="text-center color-blue-dark-shebam">Nombres des Tickets WEB SHEBAM: <span class="color-yellow-shebam">{{ totalTicketsShebamWeb }}</span></p>
+				<p class="text-center color-blue-dark-shebam">Nombres de plugins achetés: <span>{{ totalPlugins }}</span></p>
+				<p class="text-center color-blue-dark-shebam">Nombres d'accompagnements mensuels: <span>{{ totalMonthlysSupport }}</span></p>
+				<p class="text-center color-blue-dark-shebam">Nombres des Tickets WEB SHEBAM: <span>{{ totalTicketsShebamWeb }}</span></p>
 			</div>
 			<!-- Colonne de gauche -->
 			<div class="col text-lcenter">
 				<h3 class="color-blue-dark-shebam"> Mes coordonnées</h3>
 				<hr class="mt-4 mb-4" align="center">
-				<p class="color-blue-dark-shebam">Adresse mail: <span class="color-yellow-shebam">{{ app.user.email }}</span></p>
-				<p class="color-blue-dark-shebam">Role:      
-					<span class="color-yellow-shebam">
+				<p class="color-blue-dark-shebam">Adresse mail: <span>{{ app.user.email }}</span></p>
+				<p class="color-blue-dark-shebam">Rôle(s):      
+					<span>
 						{% for role in app.user.roles %}
 							{% if role == "ROLE_USER" %}
 								Utilisateur
-							{% elseif role == "ROLE_PRO" %}
-								Entreprise
 							{% elseif role == "ROLE_ADMIN" %}
 								Administrateur
 							{% endif %}
                         {% endfor %}
 					</span>
 				</p>
-			</div>
-
-			<!-- Colonne de droite -->
-			<div class="col text-center">
-				<h3 class="color-blue-dark-shebam"> Modification des coordonnées</h3>
-			<hr class="mt-4 mb-4" align="center">
-			<div class="was-validated text-center is-valid">
-				{% if notification %}
-					<hr>
-						<div class="alert alert-info">{{ notification }}</div>
-					<hr>
-				{% endif %}
-					{{ form_start(form) }}
-				<div class="form-group ">
-					{{ form_widget(form) }}
-				</div>
-					{{ form_end(form) }}
-			</div>
-
-			<span class="color-blue-dark-shebam text-padding"> Aie c'est quoi déjà ? - </span><a href="{{path('app_forgot_password_request')}}" class="text-info">Mot de passe oublié</a>
+				<div class="mb-5"></div>
+                <p data-toggle="modal" data-target="#openModificationPopup" class="btn btn-blue-shebam justify-content-center">Modifier mes coordonnées<p>
 			</div>
 		</div>
+
+    <!-- POPUP -->
+    <!-- Plugin -->
+    <div class="modal fade" id="openModificationPopup" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Modification de mes coordonées</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+				{{ form_start(form) }}
+					<div class="form-group ">
+						{{ form_widget(form) }}
+					</div>
+				{{ form_end(form) }}
+				<span class="color-blue-dark-shebam text-padding"> Aie c'est quoi déjà ? - </span><a href="{{path('app_forgot_password_request')}}" class="text-info">Mot de passe oublié</a>
+                </div>
+            </div>
+        </div>
+    </div>
 	</div>
 
 {% endblock %}
