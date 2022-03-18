@@ -1,0 +1,86 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>{% block title %}Accueil - {% block title_base %}{{ parent() }}{% endblock %}{% endblock %}</title>
+    </style>
+</head>
+{% block body %}
+<div class="mb-5">
+    <h1 class="text-center color-blue-dark-shebam mb-3">Liste des Thèmes</h1>
+    <hr>
+    <div class="mb-5"></div>
+    <div class="d-flex justify-content-center">
+        <div class="col padding-mobile">
+            {% if is_granted('IS_AUTHENTICATED_FULLY') and is_granted('ROLE_USER')%}
+                <p data-toggle="modal" data-target="#openPluginPopup" class="btn btn-blue-shebam justify-content-center">Ajouter un thème<p>
+            {% for theme in themes %}
+            <div class="feature-card">
+                <div class="feature-card-title">
+                    <h3>{{theme.name}}</h3>
+                </div>
+                <div class="feature-card-details">
+                    <h2 class="text-center ">{{theme.name}}</h2>
+                    <p>Lien: <a href="{{theme.link}}"><span>{{plugin.link}}</a></span></p>
+                    <p>Date d'achat: <span>{{theme.purchaseddate|date('d-m-Y') }}</span></p>
+                    <p>Date d'expiration: <span>{{plugin.expirationdate|date('d-m-Y') }}</span></p>
+                    <p>Durée: <span>{{theme.duration}}</span></p>
+                    <p>Prix: <span>{{theme.price}}</span></p>
+                    <p>Client: <span>{{theme.customer}}</span></p>
+                    <p>CMS: <span>{{theme.cms}}</span></p>
+                    <p>
+                        <a href="{{ path('modify_theme_front', {"id": theme.id}) }}"><i class="fas fa-cog"></i></a>
+                        <a href="{{ path('delete_theme_front', {"id": theme.id}) }}"><i class="fas fa-trash"></i></a>  
+                    </p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-center mb-4 mt-4">Connecte-toi pour pouvoir gérer la liste des rappels !</p>
+        {% endif %}
+    </div>
+
+
+    <!-- POPUP -->
+    <!-- Thème -->
+    <div class="modal fade" id="openPluginPopup" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Ajout d'un thème</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    {{ form_start(form_themes_add_front) }}
+                    <div class="form-group">
+                        {{ form_row(form_themes_add_front.name) }}
+                        {{ form_row(form_themes_add_front.link) }}
+                        {{ form_row(form_themes_add_front.purchaseddate) }}
+                        {{ form_row(form_themes_add_front.expirationdate) }}
+                        {{ form_row(form_themes_add_front.duration) }}
+                        {{ form_row(form_themes_add_front.price) }}
+                        {{ form_row(form_themes_add_front.customer) }}
+                        {{ form_row(form_themes_add_front.cms) }}
+                    </div>
+                    <div class="form-group">
+                        {{ form_row(form_themes_add_front.submit) }}
+                    </div>
+                    {{ form_end(form_themes_add_front) }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+</html>
+{% endblock %}
