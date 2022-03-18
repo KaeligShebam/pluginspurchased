@@ -6,7 +6,7 @@ use App\Repository\ThemesRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass=ThemeRepository::class)
+ * @ORM\Entity(repositoryClass=ThemesRepository::class)
  */
 class Themes
 {

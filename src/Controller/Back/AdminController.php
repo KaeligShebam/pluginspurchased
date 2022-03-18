@@ -2,12 +2,12 @@
 
 namespace App\Controller\Back;
 
-use App\Entity\MonthlysSupport;
 use App\Entity\User;
+use App\Entity\Themes;
 use App\Entity\Plugins;
+use App\Entity\MonthlysSupport;
 use App\Entity\TicketsShebamWeb;
 use App\Repository\UserRepository;
-use App\Repository\PluginsRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -26,12 +26,18 @@ class AdminController extends AbstractController
     /**
      * @Route("/admin", name="admin")
      */
-    public function admin(UserRepository $user, PluginsRepository $pluginsListAdmin): Response
+    public function admin(UserRepository $user): Response
     {
         $em = $this->getDoctrine()->getManager();
 
         $repoPlugins = $em->getRepository(Plugins::class);
         $totalPlugins = $repoPlugins->createQueryBuilder('a')
+            ->select('count(a.id)')
+            ->getQuery()
+            ->getSingleScalarResult();
+
+        $repoThemes = $em->getRepository(Themes::class);
+        $totalThemes = $repoThemes->createQueryBuilder('a')
             ->select('count(a.id)')
             ->getQuery()
             ->getSingleScalarResult();
@@ -50,10 +56,10 @@ class AdminController extends AbstractController
 
         return $this->render('back/index.html.twig', [
             'user' => $user->findBy([], ['lastname' => 'ASC']),
-            'plugin' => $pluginsListAdmin->findBy([], ['name' => 'ASC']),
             'totalPlugins' => $totalPlugins,
             'totalMonthlysSupport' => $totalMonthlysSupport,
             'totalTicketsShebamWeb' => $totalTicketsShebamWeb,
+            'totalThemes' => $totalThemes
         ]);
     }
 

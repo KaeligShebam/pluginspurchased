@@ -55,28 +55,28 @@
                             </li>
                         {% elseif app.request.attributes.get('_route') == 'modify_monthly_support_front' %}
                             <li class="nav-item active"> 
-                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('monthlys_support') }}">Retourner aux accompagnements mensuels</a>
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('monthlys_support') }}">Accompagnements mensuels</a>
                             </li>
                         {% elseif app.request.attributes.get('_route') == 'modify_plugin_front' %}
                             <li class="nav-item active"> 
-                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('plugins') }}">Retourner aux plugins</a>
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('plugins') }}">Plugins</a>
                             </li>
                         {% elseif app.request.attributes.get('_route') == 'modify_tickets_shebam_web_front' %}
                             <li class="nav-item active"> 
-                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('tickets_shebam_web') }}">Retourner aux tickets WEB Shebam</a>
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('tickets_shebam_web') }}">Ttickets WEB Shebam</a>
                             </li>
                         {% elseif app.request.attributes.get('_route') == 'account' %}
                             <li class="nav-item active"> 
                                 <a class="navbar-text color-blue-dark-shebam" href="{{ path('home') }}">Accueil</a>
                                 <a class="navbar-text color-blue-dark-shebam" href="{{ path('plugins') }}">Plugins</a>
-                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('monthlys_support') }}">Retourner aux accompagnements mensuels</a>
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('monthlys_support') }}">Accompagnements mensuels</a>
                                 <a class="navbar-text color-blue-dark-shebam" href="{{ path('tickets_shebam_web') }}">Tickets WEB Shebam</a>
                             </li>
                         {% elseif app.request.attributes.get('_route') == 'admin' %}
                             <li class="nav-item active"> 
                                 <a class="navbar-text color-blue-dark-shebam" href="{{ path('home') }}">Accueil</a>
                                 <a class="navbar-text color-blue-dark-shebam" href="{{ path('plugins') }}">Plugins</a>
-                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('monthlys_support') }}">Retourner aux accompagnements mensuels</a>
+                                <a class="navbar-text color-blue-dark-shebam" href="{{ path('monthlys_support') }}">Accompagnements mensuels</a>
                                 <a class="navbar-text color-blue-dark-shebam" href="{{ path('tickets_shebam_web') }}">Tickets WEB Shebam</a>
                             </li>
                         {% endif %}
