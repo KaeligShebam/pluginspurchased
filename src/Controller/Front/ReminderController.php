@@ -8,14 +8,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class HomeController extends AbstractController
+class ReminderController extends AbstractController
 {
     /**
-     * @Route("/", name="home")
+     * @Route("/liste", name="reminder_list")
      */
     public function index(): Response
     {
-        return $this->render('front/home/index.html.twig');
+        return $this->render('front/reminder/index.html.twig');
 
     }
 

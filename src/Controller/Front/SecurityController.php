@@ -2,28 +2,32 @@
 
 namespace App\Controller\Front;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class SecurityController extends AbstractController
 {
     /**
-     * @Route("/connexion", name="app_login")
+     * @Route("/", name="home")
      */
-    public function login(AuthenticationUtils $authenticationUtils): Response
+    public function index(AuthenticationUtils $authenticationUtils): Response
     {
-         if ($this->getUser()) {
-            return $this->redirectToRoute('account');
-         }
+        if ($this->getUser() instanceof UserInterface === true) {
+            return $this->redirectToRoute('reminder_list');
+        }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
 
-        return $this->render('front/security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+        return $this->render('front/home/index.html.twig', [
+            'last_username' => $lastUsername,
+            'error' => $error
+        ]);
     }
 
     /**
