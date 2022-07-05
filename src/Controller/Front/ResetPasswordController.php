@@ -20,7 +20,7 @@ use SymfonyCasts\Bundle\ResetPassword\Controller\ResetPasswordControllerTrait;
 use SymfonyCasts\Bundle\ResetPassword\Exception\ResetPasswordExceptionInterface;
 
 /**
- * @Route("/connexion/reinitialiser-le-mot-de-passe")
+ * @Route("/reinitialiser-le-mot-de-passe")
  */
 class ResetPasswordController extends AbstractController
 {
@@ -162,9 +162,9 @@ class ResetPasswordController extends AbstractController
         }
 
         $email = (new TemplatedEmail())
-            ->from(new Address('nepasrepondre@cityaccess.kaeligberel.fr', 'Réinitialiser le mot de passe - To Do List'))
+            ->from(new Address('nepasrepondre@shebam.fr', 'Réinitialiser le mot de passe - Rappels Clients'))
             ->to($user->getEmail())
-            ->subject('Lien de réinitialisation du mot de passe - To Do List')
+            ->subject('Lien de réinitialisation du mot de passe - Rappels Clients')
             ->htmlTemplate('front/reset_password/email.html.twig')
             ->context([
                 'resetToken' => $resetToken,
